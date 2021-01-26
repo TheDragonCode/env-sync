@@ -14,14 +14,11 @@
 [![Total Downloads][badge_downloads]][link_packagist]
 [![License][badge_license]][link_license]
 
-[![For Laravel][badge_laravel]][link_packagist]
-[![For Lumen][badge_lumen]][link_packagist]
-
 ## Table of contents
 
 * [Installation](#installation)
 * [How to use](#how-to-use)
-    * [Laravel/Lumen Frameworks](#laravellumen-frameworks)
+    * [Laravel / Lumen Frameworks](#laravel--lumen-frameworks)
     * [Other using](#other-using)
 
 ## Installation
@@ -44,7 +41,7 @@ Or manually update `require` block of `composer.json` and run `composer update`.
 
 ## How to use
 
-### Laravel/Lumen Frameworks
+### Laravel / Lumen Frameworks
 
 Just execute the `php artisan env:sync` command.
 
@@ -95,10 +92,6 @@ You can also suggest your implementation by sending a PR. We will be glad 😊
 [badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/env-sync/phpunit?style=flat-square
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/env-sync.svg?style=flat-square
-
-[badge_laravel]:        https://img.shields.io/badge/Laravel-6.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
-
-[badge_lumen]:          https://img.shields.io/badge/Lumen-6.x%20%7C%207.x%20%7C%208.x-orange.svg?style=flat-square
 
 [badge_license]:        https://img.shields.io/packagist/l/andrey-helldar/env-sync.svg?style=flat-square
 
