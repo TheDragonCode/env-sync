@@ -108,7 +108,7 @@ You can also suggest your implementation by sending a PR. We will be glad 😊
 
 [badge_stable]:         https://img.shields.io/github/v/release/andrey-helldar/env-sync?label=stable&style=flat-square
 
-[badge_styleci]:        https://styleci.io/repos/317845207/shield
+[badge_styleci]:        https://styleci.io/repos/333111450/shield
 
 [badge_unstable]:       https://img.shields.io/badge/unstable-dev--main-orange?style=flat-square
 
@@ -120,4 +120,4 @@ You can also suggest your implementation by sending a PR. We will be glad 😊
 
 [link_scrutinizer]:     https://scrutinizer-ci.com/g/andrey-helldar/env-sync/?branch=main
 
-[link_styleci]:         https://github.styleci.io/repos/317845207
+[link_styleci]:         https://github.styleci.io/repos/333111450
