@@ -101,7 +101,7 @@ protected function sync()
 
 You can also suggest your implementation by sending a PR. We will be glad 😊
 
-[badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/env-sync/phpunit?style=flat-square
+[badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/env-sync/other?style=flat-square
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/env-sync.svg?style=flat-square
 
