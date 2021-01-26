@@ -81,10 +81,15 @@ protected function syncer(): Syncer
 
 protected function sync()
 {
+    // $this->syncer()
+    //    ->from('/** path to .env file */')
+    //    ->to('/** path to .env.example file */')
+    //    ->store();
+
     $this->syncer()
-        ->from('/** path to .env file */')
-        ->to('/** path to .env.example file */')
-        ->store();
+       ->from(__DIR__ . '/../.env')
+       ->to(__DIR__ . '/../.env.example')
+       ->store();
 }
 ```
 
