@@ -52,7 +52,7 @@ You can also specify the invocation when executing the `composer update` command
 {
     "scripts": {
         "post-update-cmd": [
-            "php artisan sync:env"
+            "php artisan env:sync"
         ]
     }
 }
