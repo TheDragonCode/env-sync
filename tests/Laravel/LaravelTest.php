@@ -12,7 +12,7 @@ final class LaravelTest extends LaravelTestCase
         $this->artisan('env:sync')->assertExitCode(0)->run();
 
         $this->assertFileExists(base_path('.env.example'));
-        $this->assertFileEquals(__DIR__ . '/fixtures/expected', base_path('.env.example'));
+        $this->assertFileEquals($this->expected(), base_path('.env.example'));
     }
 
     public function testCustomPath()
@@ -20,7 +20,7 @@ final class LaravelTest extends LaravelTestCase
         $this->artisan('env:sync', ['--path' => base_path()]);
 
         $this->assertFileExists(base_path('.env.example'));
-        $this->assertFileEquals(__DIR__ . '/fixtures/expected', base_path('.env.example'));
+        $this->assertFileEquals($this->expected(), base_path('.env.example'));
     }
 
     public function testCustomPathFailed()

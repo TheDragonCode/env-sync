@@ -14,30 +14,30 @@ final class OtherTest extends OtherTestCase
     {
         $service = $this->service();
 
-        $service->from(__DIR__ . '/fixtures/source');
+        $service->from($this->source());
 
-        $this->assertStringEqualsFile(__DIR__ . '/fixtures/expected', $service->cleaned());
+        $this->assertStringEqualsFile($this->expected(), $service->cleaned());
     }
 
     public function testStoring()
     {
         $service = $this->service();
 
-        $service->from(__DIR__ . '/fixtures/source');
-        $service->to(__DIR__ . '/fixtures/actual');
+        $service->from($this->source());
+        $service->to($this->actual());
 
         $service->store();
 
-        $this->assertFileExists(__DIR__ . '/fixtures/actual');
-        $this->assertFileEquals(__DIR__ . '/fixtures/expected', __DIR__ . '/fixtures/actual');
+        $this->assertFileExists($this->actual());
+        $this->assertFileEquals($this->expected(), $this->actual());
     }
 
-protected function service(): Syncer
-{
-    $parser    = new Parser();
-    $stringify = new Stringify();
-    $compiler  = new Compiler($stringify);
+    protected function service(): Syncer
+    {
+        $parser    = new Parser();
+        $stringify = new Stringify();
+        $compiler  = new Compiler($stringify);
 
-    return new Syncer($parser, $compiler);
-}
+        return new Syncer($parser, $compiler);
+    }
 }

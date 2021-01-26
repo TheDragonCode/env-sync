@@ -6,11 +6,21 @@ trait Files
 {
     protected function source(): string
     {
-        return __DIR__ . '/../fixtures/source';
+        return $this->fixtures('source');
     }
 
     protected function expected(): string
     {
-        return __DIR__ . '/../fixtures/expected';
+        return $this->fixtures('expected');
+    }
+
+    protected function actual(): string
+    {
+        return $this->fixtures('actual');
+    }
+
+    protected function fixtures(string $filename): string
+    {
+        return __DIR__ . '/../fixtures/' . $filename;
     }
 }
