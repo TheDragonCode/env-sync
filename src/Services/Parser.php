@@ -22,6 +22,8 @@ final class Parser
 
     protected function rows(string $content): array
     {
+        $content = str_replace("\r\n", "\n", $content);
+
         return explode("\n", $content);
     }
 
