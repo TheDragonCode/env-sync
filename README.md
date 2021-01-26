@@ -1,6 +1,8 @@
 # Env Sync
 
-![env-sync](https://user-images.githubusercontent.com/10347617/101372725-4276fa00-38bd-11eb-818b-0e6a599edcb7.png)
+<p align="center">
+    <img src="/.github/images/logo.png?raw=true" alt="Env Sync"/>
+</p>
 
 [![StyleCI Status][badge_styleci]][link_styleci]
 [![Github Workflow Status][badge_build]][link_build]
