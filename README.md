@@ -20,6 +20,7 @@
 * [How to use](#how-to-use)
     * [Laravel / Lumen Frameworks](#laravel--lumen-frameworks)
     * [Other using](#other-using)
+    * [Example](#example)
 
 ## Installation
 
@@ -86,6 +87,12 @@ protected function sync()
         ->store();
 }
 ```
+
+### Example
+
+<p align="center">
+    <img src="/.github/images/compare.png?raw=true" alt="Example"/>
+</p>
 
 You can also suggest your implementation by sending a PR. We will be glad 😊
 
