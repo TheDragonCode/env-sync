@@ -30,7 +30,7 @@ To get the latest version of `Env Sync`, simply require the project using [Compo
 $ composer require andrey-helldar/env-sync --dev
 ```
 
-Or manually update `require` block of `composer.json` and run `composer update`.
+Or manually update `require-dev` block of `composer.json` and run `composer update`.
 
 ```json
 {
