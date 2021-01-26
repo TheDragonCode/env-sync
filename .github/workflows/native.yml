@@ -1,4 +1,4 @@
-name : other
+name : native
 on : [ push ]
 
 jobs :
