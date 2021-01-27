@@ -14,6 +14,11 @@
 [![Total Downloads][badge_downloads]][link_packagist]
 [![License][badge_license]][link_license]
 
+> What is he doing?
+> In the current implementation, the package copies the `.env` file with the environment settings to the `.env.example` file and hides the private data.
+>
+> Soon, the file compilation algorithm will be slightly different.
+
 ## Table of contents
 
 * [Installation](#installation)
