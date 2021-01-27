@@ -48,6 +48,5 @@ abstract class LaravelTestCase extends BaseTestCase
 
     protected function envSourceFilename(): string
     {
-        //
     }
 }
