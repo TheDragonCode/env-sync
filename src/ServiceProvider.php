@@ -11,6 +11,7 @@ final class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->registerCommands();
+        $this->registerConfig();
     }
 
     public function boot()
