@@ -7,6 +7,8 @@ use Helldar\Support\Facades\Helpers\Str;
 
 final class Compiler
 {
+    protected $hides = ['CLIENT', 'HOOK', 'KEY', 'LOGIN', 'PASS', 'SECRET', 'TOKEN', 'USER'];
+
     protected $separator = "\n";
 
     protected $stringify;
@@ -45,16 +47,26 @@ final class Compiler
 
     protected function replace(string $key, $value)
     {
-        if ($this->isKeeping($key)) {
-            return $value;
-        }
+        switch (true) {
+            case $this->isForceHiding($key):
+                return null;
 
-        return $this->value($key);
+            case $this->isKeeping($key):
+                return $value;
+
+            default:
+                return $this->value($key);
+        }
     }
 
     protected function isKeeping(string $key): bool
     {
-        return in_array($key, $this->config->keep());
+        return $this->inArray($key, $this->config->keep());
+    }
+
+    protected function isForceHiding(string $key): bool
+    {
+        return $this->inArray($key, $this->hides);
     }
 
     protected function value(string $key)
@@ -93,5 +105,10 @@ final class Compiler
     protected function isEmptyRow($key, $value): bool
     {
         return is_numeric($key) && empty($value);
+    }
+
+    protected function inArray(string $key, array $array): bool
+    {
+        return Str::contains($key, $array);
     }
 }
