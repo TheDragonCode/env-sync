@@ -42,9 +42,4 @@ final class ConfigurableTest extends OtherTestCase
 
         return new Syncer($parser, $compiler);
     }
-
-    protected function config(): array
-    {
-        return require realpath(__DIR__ . '/../fixtures/config.php');
-    }
 }

@@ -5,10 +5,12 @@ namespace Tests\Cases;
 use Helldar\EnvSync\ServiceProvider;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use Tests\Concerns\Configurable;
 use Tests\Concerns\Files;
 
 abstract class LaravelTestCase extends BaseTestCase
 {
+    use Configurable;
     use Files;
 
     protected function setUp(): void
@@ -39,6 +41,13 @@ abstract class LaravelTestCase extends BaseTestCase
 
     protected function copyEnv(): void
     {
-        copy(__DIR__ . '/../fixtures/source', base_path('.env'));
+        $filename = $this->envSourceFilename();
+
+        copy(__DIR__ . '/../fixtures/' . $filename, base_path('.env'));
+    }
+
+    protected function envSourceFilename(): string
+    {
+        //
     }
 }
