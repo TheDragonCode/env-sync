@@ -11,13 +11,17 @@ use Tests\Cases\OtherTestCase;
 
 final class ConfigurableTest extends OtherTestCase
 {
+    protected $fixture_expected = 'expected-config';
+
+    protected $fixture_source = 'source-config';
+
     public function testContent()
     {
         $service = $this->service();
 
         $service->from($this->source());
 
-        $this->assertStringEqualsFile($this->expected(true), $service->cleaned());
+        $this->assertStringEqualsFile($this->expected(), $service->cleaned());
     }
 
     public function testStoring()
@@ -30,7 +34,7 @@ final class ConfigurableTest extends OtherTestCase
         $service->store();
 
         $this->assertFileExists($this->actual());
-        $this->assertFileEquals($this->expected(true), $this->actual());
+        $this->assertFileEquals($this->expected(), $this->actual());
     }
 
     protected function service(): Syncer

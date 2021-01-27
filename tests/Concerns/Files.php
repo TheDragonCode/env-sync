@@ -4,16 +4,18 @@ namespace Tests\Concerns;
 
 trait Files
 {
+    protected $fixture_expected = 'expected';
+
+    protected $fixture_source = 'source';
+
     protected function source(): string
     {
         return $this->fixtures('source');
     }
 
-    protected function expected(bool $config = false): string
+    protected function expected(): string
     {
-        $filename = $config ? 'expected-config' : 'expected';
-
-        return $this->fixtures($filename);
+        return $this->fixtures($this->fixture_expected);
     }
 
     protected function actual(): string

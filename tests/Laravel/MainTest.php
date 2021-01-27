@@ -29,9 +29,4 @@ final class MainTest extends LaravelTestCase
 
         $this->artisan('env:sync', ['--path' => base_path('foo')])->run();
     }
-
-    protected function envSourceFilename(): string
-    {
-        return 'source';
-    }
 }

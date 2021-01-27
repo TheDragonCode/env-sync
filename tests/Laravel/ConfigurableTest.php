@@ -7,12 +7,16 @@ use Tests\Cases\LaravelTestCase;
 
 final class ConfigurableTest extends LaravelTestCase
 {
+    protected $fixture_expected = 'expected-config';
+
+    protected $fixture_source = 'source-config';
+
     public function testCommand()
     {
         $this->artisan('env:sync')->assertExitCode(0)->run();
 
         $this->assertFileExists(base_path('.env.example'));
-        $this->assertFileEquals($this->expected(true), base_path('.env.example'));
+        $this->assertFileEquals($this->expected(), base_path('.env.example'));
     }
 
     public function testCustomPath()
@@ -20,7 +24,7 @@ final class ConfigurableTest extends LaravelTestCase
         $this->artisan('env:sync', ['--path' => base_path()]);
 
         $this->assertFileExists(base_path('.env.example'));
-        $this->assertFileEquals($this->expected(true), base_path('.env.example'));
+        $this->assertFileEquals($this->expected(), base_path('.env.example'));
     }
 
     public function testCustomPathFailed()
@@ -28,11 +32,6 @@ final class ConfigurableTest extends LaravelTestCase
         $this->expectException(FileNotFoundException::class);
 
         $this->artisan('env:sync', ['--path' => base_path('foo')])->run();
-    }
-
-    protected function envSourceFilename(): string
-    {
-        return 'source-config';
     }
 
     protected function getEnvironmentSetUp($app)

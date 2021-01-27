@@ -41,12 +41,6 @@ abstract class LaravelTestCase extends BaseTestCase
 
     protected function copyEnv(): void
     {
-        $filename = $this->envSourceFilename();
-
-        copy(__DIR__ . '/../fixtures/' . $filename, base_path('.env'));
-    }
-
-    protected function envSourceFilename(): string
-    {
+        copy(__DIR__ . '/../fixtures/' . $this->fixture_source, base_path('.env'));
     }
 }
