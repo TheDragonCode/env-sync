@@ -60,6 +60,14 @@ You can also specify the invocation when executing the `composer update` command
 
 Now, every time you run the `composer update` command, the environment settings file will be synchronized.
 
+If you want to define default values or specify which key values should be saved, publish the configuration file by running the artisan command:
+
+```bash
+php artisan vendor:publish --provider="Helldar\EnvSync\ServiceProvider"
+```
+
+Now you can change the file `config/env-sync.php`.
+
 ### Other using
 
 To call a command in your application, you need to do the following:
@@ -69,12 +77,14 @@ use Helldar\EnvSync\Services\Compiler;
 use Helldar\EnvSync\Services\Parser;
 use Helldar\EnvSync\Services\Stringify;
 use Helldar\EnvSync\Services\Syncer;
+use Helldar\EnvSync\Support\Config;
 
 protected function syncer(): Syncer
 {
     $parser    = new Parser();
     $stringify = new Stringify();
-    $compiler  = new Compiler($stringify);
+    $config    = new Config();
+    $compiler  = new Compiler($stringify, $config);
 
     return new Syncer($parser, $compiler);
 }
@@ -90,6 +100,31 @@ protected function sync()
        ->from(__DIR__ . '/../.env')
        ->to(__DIR__ . '/../.env.example')
        ->store();
+}
+```
+
+If you want to define default values or specify which key values should be stored, you need to pass an array to the constructor of the `Config` class:
+
+```php
+use Helldar\EnvSync\Services\Compiler;
+use Helldar\EnvSync\Services\Parser;
+use Helldar\EnvSync\Services\Stringify;
+use Helldar\EnvSync\Services\Syncer;
+use Helldar\EnvSync\Support\Config;
+
+protected function syncer(): Syncer
+{
+    $parser    = new Parser();
+    $stringify = new Stringify();
+    $config    = new Config($this->config());
+    $compiler  = new Compiler($stringify, $config);
+
+    return new Syncer($parser, $compiler);
+}
+
+protected function config(): array
+{
+    return require realpath(__DIR__ . '/your-path/your-config.php');
 }
 ```
 
