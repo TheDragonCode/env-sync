@@ -2,47 +2,23 @@
 
 namespace Helldar\EnvSync\Services;
 
+use Helldar\EnvSync\Support\Config;
 use Helldar\Support\Facades\Helpers\Str;
 
 final class Compiler
 {
-    protected $keeping = ['APP_NAME'];
-
-    protected $forces = [
-        'APP_ENV'   => 'production',
-        'APP_DEBUG' => false,
-        'APP_URL'   => 'http://localhost',
-
-        'LOG_CHANNEL' => 'daily',
-
-        'DB_CONNECTION' => 'mysql',
-        'DB_HOST'       => '127.0.0.1',
-        'DB_PORT'       => 3306,
-        'DB_DATABASE'   => 'default',
-
-        'BROADCAST_DRIVER' => 'redis',
-        'CACHE_DRIVER'     => 'redis',
-        'QUEUE_CONNECTION' => 'redis',
-        'SESSION_DRIVER'   => 'redis',
-        'SESSION_LIFETIME' => 120,
-
-        'REDIS_HOST' => '127.0.0.1',
-        'REDIS_PORT' => 6379,
-
-        'MAIL_MAILER' => 'smtp',
-        'MAIL_HOST'   => 'mailhog',
-        'MAIL_PORT'   => 1025,
-    ];
-
     protected $separator = "\n";
 
     protected $stringify;
 
+    protected $config;
+
     protected $items;
 
-    public function __construct(Stringify $stringify)
+    public function __construct(Stringify $stringify, Config $config)
     {
         $this->stringify = $stringify;
+        $this->config    = $config;
     }
 
     public function items(array $items): self
@@ -78,12 +54,12 @@ final class Compiler
 
     protected function isKeeping(string $key): bool
     {
-        return in_array($key, $this->keeping);
+        return in_array($key, $this->config->keep());
     }
 
     protected function value(string $key)
     {
-        foreach ($this->forces as $forced_key => $value) {
+        foreach ($this->config->forces() as $forced_key => $value) {
             if (Str::endsWith($key, $forced_key)) {
                 return $value;
             }

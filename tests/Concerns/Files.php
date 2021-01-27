@@ -9,9 +9,11 @@ trait Files
         return $this->fixtures('source');
     }
 
-    protected function expected(): string
+    protected function expected(bool $config = false): string
     {
-        return $this->fixtures('expected');
+        $filename = $config ? 'expected-config' : 'expected';
+
+        return $this->fixtures($filename);
     }
 
     protected function actual(): string
