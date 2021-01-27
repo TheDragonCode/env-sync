@@ -1,4 +1,4 @@
-# Env Sync
+# Environment Synchronization
 
 <p align="center">
     <img src="/.github/images/logo.png?raw=true" alt="Env Sync"/>
