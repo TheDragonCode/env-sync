@@ -24,7 +24,7 @@
 
 ## Installation
 
-To get the latest version of `Env Sync`, simply require the project using [Composer](https://getcomposer.org):
+To get the latest version of `Environment Synchronization`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
 $ composer require andrey-helldar/env-sync --dev
