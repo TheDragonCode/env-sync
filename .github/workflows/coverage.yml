@@ -2,8 +2,9 @@ name : coverage
 on :
     push :
         branches :
-            - main
             - coverage
+        tags :
+            - v*
 
 jobs :
     scrutinizer :
