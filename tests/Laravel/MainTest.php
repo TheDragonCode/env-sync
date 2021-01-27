@@ -5,7 +5,7 @@ namespace Tests\Laravel;
 use Helldar\Support\Exceptions\FileNotFoundException;
 use Tests\Cases\LaravelTestCase;
 
-final class LaravelTest extends LaravelTestCase
+final class MainTest extends LaravelTestCase
 {
     public function testCommand()
     {

@@ -9,7 +9,7 @@ use Helldar\EnvSync\Services\Syncer;
 use Helldar\EnvSync\Support\Config;
 use Tests\Cases\OtherTestCase;
 
-final class OtherTest extends OtherTestCase
+final class MainTest extends OtherTestCase
 {
     public function testContent()
     {
