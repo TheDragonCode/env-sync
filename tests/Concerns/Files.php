@@ -10,6 +10,6 @@ trait Files
 
     protected function expected(): string
     {
-        return __DIR__ . '/../fixtures/' . $this->type . '/' . $this->fixture_expected;
+        return realpath(__DIR__ . '/../fixtures/' . $this->type . '/' . $this->fixture_expected);
     }
 }
