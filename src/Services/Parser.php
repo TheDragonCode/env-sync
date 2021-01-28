@@ -48,7 +48,7 @@ final class Parser
         }
     }
 
-    protected function match(string $content, string $pattern = '/(getenv|env)\((.+)\)/'): array
+    protected function match(string $content, string $pattern = '/(getenv|env)\((.+)\)/U'): array
     {
         preg_match_all($pattern, $content, $matches);
 
@@ -74,7 +74,7 @@ final class Parser
 
     protected function subkey(string $value): string
     {
-        $sub_key = $this->match($value, '/(getenv|env)\((.+)\)?/')[0];
+        $sub_key = $this->match($value, '/(getenv|env)\((.+)\)?/U')[0];
 
         return trim($sub_key, " \t\n\r\0\x0B,()");
     }
