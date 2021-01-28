@@ -42,9 +42,10 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 
 ## How to use
 
-> Note
 > This package scans files with `*.php`, `*.json`, `*.yml`, `*.yaml` and `*.twig` extensions in the specified folder, receiving from them calls to the `env` and `getenv` functions.
 > Based on the received values, the package creates a key-value array. When saving, the keys are split into blocks by the first word before the `_` character.
+>
+> Also, all keys are sorted alphabetically.
 
 ### Laravel / Lumen Frameworks
 
