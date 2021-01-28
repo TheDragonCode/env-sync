@@ -24,13 +24,13 @@ abstract class NativeTestCase extends TestCase
 
     protected function service(): Syncer
     {
-    $parser    = new Parser();
-    $stringify = new Stringify();
-    $config    = new Config($this->serviceConfig());
-    $compiler  = new Compiler($stringify, $config);
-    $finder    = new Finder(SymfonyFinder::create());
+        $parser    = new Parser();
+        $stringify = new Stringify();
+        $config    = new Config($this->serviceConfig());
+        $compiler  = new Compiler($stringify, $config);
+        $finder    = new Finder(SymfonyFinder::create());
 
-    return new Syncer($parser, $compiler, $finder);
+        return new Syncer($parser, $compiler, $finder);
     }
 
     protected function serviceConfig(): ?array
