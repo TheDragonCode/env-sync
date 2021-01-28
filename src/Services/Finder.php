@@ -6,6 +6,12 @@ use Symfony\Component\Finder\Finder as SymfonyFinder;
 
 final class Finder
 {
+    protected $exclude_dirs = ['vendor', 'node_modules', '.idea', '.git', '.github', 'tests'];
+
+    protected $names = ['*.php', '*.json', '*.yml', '*.yaml', '*.twig'];
+
+    protected $contains = ['env(', 'getenv('];
+
     protected $instance;
 
     protected $files = [];
@@ -45,9 +51,9 @@ final class Finder
     protected function find($path): SymfonyFinder
     {
         return $this->instance->in($path)->files()
-            ->exclude(['vendor', 'node_modules', '.idea', '.git', '.github', 'tests'])
-            ->name(['*.php', '*.json', '*.yml', '*.yaml', '*.twig'])
-            ->contains(['env(', 'getenv(']);
+            ->exclude($this->exclude_dirs)
+            ->name($this->names)
+            ->contains($this->contains);
     }
 
     protected function push(string $path): void
