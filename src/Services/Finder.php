@@ -45,6 +45,7 @@ final class Finder
     protected function find($path): SymfonyFinder
     {
         return $this->instance->in($path)->files()
+            ->exclude(['vendor', 'node_modules', '.idea', '.git', '.github', 'tests'])
             ->name(['*.php', '*.json', '*.yml', '*.yaml', '*.twig'])
             ->contains(['env(', 'getenv(']);
     }
