@@ -32,6 +32,6 @@ abstract class LaravelTestCase extends BaseTestCase
 
     protected function deleteFiles(): void
     {
-        File::delete(base_path('.env.example'));
+        File::delete($this->targetPath());
     }
 }

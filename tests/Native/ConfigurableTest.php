@@ -28,10 +28,8 @@ final class ConfigurableTest extends NativeTestCase
 
         $service->store();
 
-        $path = $this->path . '/' . $this->filename;
-
-        $this->assertFileExists($path);
-        $this->assertFileEquals($this->expected(), $path);
+        $this->assertFileExists($this->targetPath());
+        $this->assertFileEquals($this->expected(), $this->targetPath());
     }
 
     public function testCustomPathFailed()

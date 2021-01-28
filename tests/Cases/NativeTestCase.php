@@ -18,10 +18,6 @@ abstract class NativeTestCase extends TestCase
     use Configurable;
     use Files;
 
-    protected $path = __DIR__ . '/../../vendor/orchestra/testbench-core/laravel';
-
-    protected $filename = '.env.example';
-
     protected function service(): Syncer
     {
         $parser    = new Parser();

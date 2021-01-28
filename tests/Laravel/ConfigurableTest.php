@@ -11,22 +11,14 @@ final class ConfigurableTest extends LaravelTestCase
 
     protected $fixture_expected = 'expected-config';
 
-    public function testCommand()
-    {
-        $this->artisan('env:sync')->assertExitCode(0)->run();
-
-        $this->assertFileExists(base_path('.env.example'));
-        $this->assertFileEquals($this->expected(), base_path('.env.example'));
-    }
-
     public function testCustomPath()
     {
-        $this->artisan('env:sync', ['--path' => base_path()])
+        $this->artisan('env:sync', ['--path' => $this->path])
             ->assertExitCode(0)
             ->run();
 
-        $this->assertFileExists(base_path('.env.example'));
-        $this->assertFileEquals($this->expected(), base_path('.env.example'));
+        $this->assertFileExists($this->targetPath());
+        $this->assertFileEquals($this->expected(), $this->targetPath());
     }
 
     public function testCustomPathFailed()
