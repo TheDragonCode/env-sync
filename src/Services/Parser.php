@@ -20,6 +20,7 @@ final class Parser
     public function get(): array
     {
         $this->each();
+        $this->sort();
 
         return $this->keys();
     }
@@ -31,6 +32,11 @@ final class Parser
 
             $this->parse($content);
         }
+    }
+
+    protected function sort(): void
+    {
+        ksort($this->keys);
     }
 
     protected function parse(string $content): void

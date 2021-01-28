@@ -65,8 +65,6 @@ final class Compiler
         $result = '';
 
         foreach ($this->items as $values) {
-            ksort($values);
-
             foreach ($values as $key => $value) {
                 $result .= "{$key}={$value}{$this->separator}";
             }
