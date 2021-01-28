@@ -19,7 +19,7 @@
 * [Installation](#installation)
 * [How to use](#how-to-use)
     * [Laravel / Lumen Frameworks](#laravel--lumen-frameworks)
-    * [Other using](#other-using)
+    * [Native using](#native-using)
     * [Example](#example)
 
 ## Installation
@@ -73,7 +73,7 @@ php artisan vendor:publish --provider="Helldar\EnvSync\ServiceProvider"
 
 Now you can change the file `config/env-sync.php`.
 
-### Other using
+### Native using
 
 To call a command in your application, you need to do the following:
 
