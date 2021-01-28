@@ -35,7 +35,7 @@ DYNAMODB_CACHE_TABLE=cache
 DYNAMODB_ENDPOINT=null
 
 DB_CONNECTION=mysql
-DB_DATABASE=database_path('database.sqlite')
+DB_DATABASE=forge
 DB_FOREIGN_KEYS=null
 DB_HOST=foo
 DB_PASSWORD=null

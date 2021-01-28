@@ -68,7 +68,7 @@ final class Parser
     protected function push(string $key, $value): void
     {
         if (! isset($this->keys[$key])) {
-            $this->keys[$key] = $value;
+            $this->keys[$key] = $this->isKeyCollision($value) ? null : $value;
         }
     }
 
@@ -77,6 +77,11 @@ final class Parser
         $sub_key = $this->match($value, '/(getenv|env)\((.+)\)?/U')[0];
 
         return trim($sub_key, " \t\n\r\0\x0B,()");
+    }
+
+    protected function isKeyCollision($value): bool
+    {
+        return Str::contains((string) $value, ['(', ')', '\'', '"']);
     }
 
     protected function keys(): array
