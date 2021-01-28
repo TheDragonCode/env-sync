@@ -3,7 +3,6 @@
 use Illuminate\Support\Str;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Database Connection Name
@@ -34,7 +33,6 @@ return [
     */
 
     'connections' => [
-
         'testing' => [
             'driver'                  => 'sqlite',
             'database'                => ':memory:',
@@ -96,7 +94,6 @@ return [
             'prefix'         => '',
             'prefix_indexes' => true,
         ],
-
     ],
 
     /*
@@ -124,7 +121,6 @@ return [
     */
 
     'redis' => [
-
         'client' => env('REDIS_CLIENT', 'phpredis'),
 
         'options' => [
@@ -147,7 +143,5 @@ return [
             'port'     => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_CACHE_DB', '1'),
         ],
-
     ],
-
 ];
