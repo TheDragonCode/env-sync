@@ -1,13 +1,15 @@
 <?php
 
-namespace Helldar\EnvSync;
+namespace Helldar\EnvSync\Frameworks\Laravel;
 
-use Helldar\EnvSync\Console\Sync;
+use Helldar\EnvSync\Frameworks\Laravel\Console\Sync;
 use Helldar\EnvSync\Support\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 final class ServiceProvider extends BaseServiceProvider
 {
+    protected $config_path = __DIR__ . '/../../../config/env-sync.php';
+
     public function register()
     {
         $this->registerCommands();
@@ -26,7 +28,7 @@ final class ServiceProvider extends BaseServiceProvider
 
     protected function registerConfig(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/env-sync.php', 'env-sync');
+        $this->mergeConfigFrom($this->config_path, 'env-sync');
 
         $this->app->singleton(Config::class, static function ($app) {
             return new Config($app['config']->get('env-sync'));
@@ -36,7 +38,7 @@ final class ServiceProvider extends BaseServiceProvider
     protected function bootConfig(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/env-sync.php' => $this->app->configPath('env-sync.php'),
+            $this->config_path => $this->app->configPath('env-sync.php'),
         ], 'config');
     }
 }

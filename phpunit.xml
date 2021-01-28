@@ -24,9 +24,6 @@
             <text outputFile="build/logs/coverage.txt"/>
         </report>
     </coverage>
-    <php>
-        <env name="APP_KEY" value="AckfSECXIvnK5r28GVIWUAxmbBSjTsmF"/>
-    </php>
     <testsuites>
         <testsuite name="Test Suite">
             <directory suffix="Test.php">./tests</directory>

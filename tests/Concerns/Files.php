@@ -4,27 +4,21 @@ namespace Tests\Concerns;
 
 trait Files
 {
+    protected $type = 'native';
+
     protected $fixture_expected = 'expected';
 
-    protected $fixture_source = 'source';
+    protected $path = __DIR__ . '/../fixtures/source';
 
-    protected function source(): string
-    {
-        return $this->fixtures('source');
-    }
+    protected $filename = '.env.example';
 
     protected function expected(): string
     {
-        return $this->fixtures($this->fixture_expected);
+        return realpath(__DIR__ . '/../fixtures/' . $this->type . '/' . $this->fixture_expected);
     }
 
-    protected function actual(): string
+    protected function targetPath(): string
     {
-        return $this->fixtures('actual');
-    }
-
-    protected function fixtures(string $filename): string
-    {
-        return __DIR__ . '/../fixtures/' . $filename;
+        return $this->path . DIRECTORY_SEPARATOR . $this->filename;
     }
 }

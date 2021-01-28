@@ -2,47 +2,103 @@
 
 namespace Helldar\EnvSync\Services;
 
+use Helldar\Support\Facades\Helpers\Str;
+
 final class Parser
 {
-    protected $raw;
+    protected $files = [];
 
-    public function raw(string $content): self
+    protected $keys = [];
+
+    public function files(array $files): self
     {
-        $this->raw = $content;
+        $this->files = $files;
 
         return $this;
     }
 
     public function get(): array
     {
-        $rows = $this->rows($this->raw);
+        $this->each();
+        $this->sort();
 
-        return $this->keys($rows);
+        return $this->keys();
     }
 
-    protected function rows(string $content): array
+    protected function each(): void
     {
-        $content = str_replace("\r\n", "\n", $content);
+        foreach ($this->files as $file) {
+            $content = file_get_contents($file);
 
-        return explode("\n", $content);
+            $this->parse($content);
+        }
     }
 
-    protected function keys(array $rows): array
+    protected function sort(): void
     {
-        $items = [];
+        ksort($this->keys);
+    }
 
-        foreach ($rows as $row) {
-            if (empty($row)) {
-                $items[] = '';
+    protected function parse(string $content): void
+    {
+        foreach ($this->match($content) as $match) {
+            [$key, $value] = $this->split($match);
 
-                continue;
+            if (Str::contains((string) $value, ['getenv', 'env'])) {
+                $sub_key = $this->subkey($value);
+
+                $value = $this->keys[$sub_key] ?? null;
             }
 
-            [$key, $value] = explode('=', $row, 2);
-
-            $items[$key] = $value;
+            $this->push($key, $value);
         }
+    }
 
-        return $items;
+    protected function match(string $content, string $pattern = '/(getenv|env)\((.+)\)/U'): array
+    {
+        preg_match_all($pattern, $content, $matches);
+
+        return $matches[2] ?? [];
+    }
+
+    protected function split(string $value): array
+    {
+        $split = explode(',', $value);
+
+        $key   = $this->trim($split[0]);
+        $value = $this->trim($split[1] ?? null);
+
+        return [$key, $value];
+    }
+
+    protected function push(string $key, $value): void
+    {
+        if (! isset($this->keys[$key])) {
+            $this->keys[$key] = $this->isKeyCollision($value) ? null : $value;
+        }
+    }
+
+    protected function subkey(string $value): string
+    {
+        $sub_key = $this->match($value, '/(getenv|env)\((.+)\)?/U')[0];
+
+        return trim($sub_key, " \t\n\r\0\x0B,()");
+    }
+
+    protected function isKeyCollision($value): bool
+    {
+        return Str::contains((string) $value, ['(', ')', '\'', '"']);
+    }
+
+    protected function keys(): array
+    {
+        return $this->keys;
+    }
+
+    protected function trim($value)
+    {
+        $chars = " \t\n\r\0\x0B'\"";
+
+        return is_string($value) ? trim($value, $chars) : $value;
     }
 }

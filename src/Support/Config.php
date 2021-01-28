@@ -12,11 +12,6 @@ final class Config
         $this->config = $config ?: $this->load();
     }
 
-    public function keep(): array
-    {
-        return $this->get('keep', []);
-    }
-
     public function forces(): array
     {
         return $this->get('forces', []);
