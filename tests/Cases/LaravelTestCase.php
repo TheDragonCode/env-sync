@@ -2,7 +2,7 @@
 
 namespace Tests\Cases;
 
-use Helldar\EnvSync\ServiceProvider;
+use Helldar\EnvSync\Frameworks\Laravel\ServiceProvider;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Tests\Concerns\Configurable;
@@ -28,19 +28,10 @@ abstract class LaravelTestCase extends BaseTestCase
     protected function clean(): void
     {
         $this->deleteFiles();
-        $this->copyEnv();
     }
 
     protected function deleteFiles(): void
     {
-        $source = base_path('.env');
-        $target = base_path('.env.example');
-
-        File::delete([$source, $target]);
-    }
-
-    protected function copyEnv(): void
-    {
-        copy(__DIR__ . '/../fixtures/' . $this->fixture_source, base_path('.env'));
+        File::delete(base_path('.env.example'));
     }
 }

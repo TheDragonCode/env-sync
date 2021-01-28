@@ -1,16 +1,13 @@
 <?php
 
 return [
-    'keep' => [
-        'APP_NAME',
-    ],
-
     'forces' => [
         'APP_ENV'   => 'production',
         'APP_DEBUG' => false,
         'APP_URL'   => 'http://localhost',
 
         'LOG_CHANNEL' => 'daily',
+        'LOG_LEVEL'   => 'debug',
 
         'DB_CONNECTION' => 'mysql',
         'DB_HOST'       => '127.0.0.1',

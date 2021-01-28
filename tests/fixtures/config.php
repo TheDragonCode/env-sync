@@ -1,20 +1,6 @@
 <?php
 
 return [
-    'keep' => [
-        'APP_ENV',
-        'LOG_CHANNEL',
-
-        'FOO_CLIENT_BAR',
-        'FOO_HOOK_BAR',
-        'FOO_KEY_BAR',
-        'FOO_LOGIN_BAR',
-        'FOO_PASS_BAR',
-        'FOO_SECRET_BAR',
-        'FOO_TOKEN_BAR',
-        'FOO_USER_BAR',
-    ],
-
     'forces' => [
         'DB_HOST' => 'foo',
 

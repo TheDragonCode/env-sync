@@ -2,6 +2,7 @@
 
 namespace Helldar\EnvSync\Services;
 
+use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 final class Syncer
@@ -10,46 +11,66 @@ final class Syncer
 
     protected $parser;
 
-    protected $from;
+    protected $finder;
 
-    protected $to;
+    protected $path;
 
-    public function __construct(Parser $parser, Compiler $compiler)
+    protected $filename;
+
+    public function __construct(Parser $parser, Compiler $compiler, Finder $finder)
     {
         $this->parser   = $parser;
         $this->compiler = $compiler;
+        $this->finder   = $finder;
     }
 
-    public function from(string $path): self
+    public function path(string $path): self
     {
-        File::validate($path);
+        Directory::validate($path);
 
-        $this->from = $path;
+        $this->path = realpath($path);
 
         return $this;
     }
 
-    public function to(string $path): self
+    public function filename(string $filename): self
     {
-        $this->to = $path;
+        $this->filename = $filename;
 
         return $this;
     }
 
-    public function cleaned(): string
+    public function content(): string
     {
-        $items = $this->parser->raw($this->content())->get();
+        $files = $this->files();
 
-        return $this->compiler->items($items)->get();
+        $items = $this->parsed($files);
+
+        return $this->compiled($items);
     }
 
     public function store(): void
     {
-        File::store($this->to, $this->cleaned());
+        File::store($this->storePath(), $this->content());
     }
 
-    protected function content(): string
+    protected function files(): array
     {
-        return file_get_contents($this->from);
+        return $this->finder->get($this->path);
+    }
+
+    protected function parsed(array $files): array
+    {
+        return $this->parser->files($files)->get();
+    }
+
+    protected function compiled(array $items): string
+    {
+        return $this->compiler->items($items)->get();
+    }
+
+    protected function storePath(): string
+    {
+        return rtrim($this->path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $this->filename;
     }
 }

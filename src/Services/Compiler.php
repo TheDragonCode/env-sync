@@ -32,36 +32,54 @@ final class Compiler
 
     public function get(): string
     {
-        foreach ($this->items as $key => &$value) {
-            if ($this->isEmptyRow($key, $value)) {
-                continue;
-            }
-
-            $replaced = $this->replace($key, $value);
-
-            $value = $this->stringify($replaced);
-        }
+        $this->map();
+        $this->split();
 
         return $this->compile();
     }
 
-    protected function replace(string $key, $value)
+    protected function map(): void
     {
-        switch (true) {
-            case $this->isForceHiding($key):
-                return null;
+        foreach ($this->items as $key => &$value) {
+            $replaced = $this->replace($key, $value);
 
-            case $this->isKeeping($key):
-                return $value;
-
-            default:
-                return $this->value($key);
+            $value = $this->stringify($replaced);
         }
     }
 
-    protected function isKeeping(string $key): bool
+    protected function split(): void
     {
-        return $this->inArray($key, $this->config->keep());
+        $items = [];
+
+        foreach ($this->items as $key => $value) {
+            $section = $this->section($key);
+
+            $items[$section][$key] = $value;
+        }
+
+        $this->items = $items;
+    }
+
+    protected function compile(): string
+    {
+        $result = '';
+
+        foreach ($this->items as $values) {
+            ksort($values);
+
+            foreach ($values as $key => $value) {
+                $result .= "{$key}={$value}{$this->separator}";
+            }
+
+            $result .= $this->separator;
+        }
+
+        return trim($result) . $this->separator;
+    }
+
+    protected function replace(string $key, $value)
+    {
+        return $this->isForceHiding($key) ? null : $this->value($key, $value);
     }
 
     protected function isForceHiding(string $key): bool
@@ -69,15 +87,15 @@ final class Compiler
         return $this->inArray($key, $this->hides);
     }
 
-    protected function value(string $key)
+    protected function value(string $key, $value)
     {
-        foreach ($this->config->forces() as $forced_key => $value) {
-            if (Str::endsWith($key, $forced_key)) {
-                return $value;
+        foreach ($this->config->forces() as $force_key => $force_value) {
+            if (Str::contains($key, $force_key)) {
+                return $force_value;
             }
         }
 
-        return null;
+        return $value;
     }
 
     protected function stringify($value): string
@@ -85,30 +103,13 @@ final class Compiler
         return $this->stringify->get($value);
     }
 
-    protected function compile(): string
-    {
-        $result = [];
-
-        foreach ($this->items as $key => $value) {
-            if ($this->isEmptyRow($key, $value)) {
-                $result[] = '';
-
-                continue;
-            }
-
-            $result[] = $key . '=' . $value;
-        }
-
-        return implode($this->separator, $result);
-    }
-
-    protected function isEmptyRow($key, $value): bool
-    {
-        return is_numeric($key) && empty($value);
-    }
-
     protected function inArray(string $key, array $array): bool
     {
         return Str::contains($key, $array);
+    }
+
+    protected function section(string $key): string
+    {
+        return explode('_', $key, 2)[0];
     }
 }

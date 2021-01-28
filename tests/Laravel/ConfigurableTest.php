@@ -2,14 +2,14 @@
 
 namespace Tests\Laravel;
 
-use Helldar\Support\Exceptions\FileNotFoundException;
+use Helldar\Support\Exceptions\DirectoryNotFoundException;
 use Tests\Cases\LaravelTestCase;
 
 final class ConfigurableTest extends LaravelTestCase
 {
-    protected $fixture_expected = 'expected-config';
+    protected $type = 'laravel';
 
-    protected $fixture_source = 'source-config';
+    protected $fixture_expected = 'expected-config';
 
     public function testCommand()
     {
@@ -21,7 +21,9 @@ final class ConfigurableTest extends LaravelTestCase
 
     public function testCustomPath()
     {
-        $this->artisan('env:sync', ['--path' => base_path()]);
+        $this->artisan('env:sync', ['--path' => base_path()])
+            ->assertExitCode(0)
+            ->run();
 
         $this->assertFileExists(base_path('.env.example'));
         $this->assertFileEquals($this->expected(), base_path('.env.example'));
@@ -29,7 +31,7 @@ final class ConfigurableTest extends LaravelTestCase
 
     public function testCustomPathFailed()
     {
-        $this->expectException(FileNotFoundException::class);
+        $this->expectException(DirectoryNotFoundException::class);
 
         $this->artisan('env:sync', ['--path' => base_path('foo')])->run();
     }

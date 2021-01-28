@@ -14,11 +14,6 @@
 [![Total Downloads][badge_downloads]][link_packagist]
 [![License][badge_license]][link_license]
 
-> What is he doing?
-> In the current implementation, the package copies the `.env` file with the environment settings to the `.env.example` file and hides the private data.
->
-> Soon, the file compilation algorithm will be slightly different.
-
 ## Table of contents
 
 * [Installation](#installation)
@@ -40,12 +35,16 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "andrey-helldar/env-sync": "^1.0"
+        "andrey-helldar/env-sync": "^1.2"
     }
 }
 ```
 
 ## How to use
+
+> Note
+> This package scans files with `*.php`, `*.json`, `*.yml`, `*.yaml` and `*.twig` extensions in the specified folder, receiving from them calls to the `env` and `getenv` functions.
+> Based on the received values, the package creates a key-value array. When saving, the keys are split into blocks by the first word before the `_` character.
 
 ### Laravel / Lumen Frameworks
 
@@ -65,7 +64,7 @@ You can also specify the invocation when executing the `composer update` command
 
 Now, every time you run the `composer update` command, the environment settings file will be synchronized.
 
-If you want to define default values or specify which key values should be saved, publish the configuration file by running the artisan command:
+If you want to force the stored values, you can change the configuration file by publishing it with the command:
 
 ```bash
 php artisan vendor:publish --provider="Helldar\EnvSync\ServiceProvider"
@@ -79,10 +78,12 @@ To call a command in your application, you need to do the following:
 
 ```php
 use Helldar\EnvSync\Services\Compiler;
+use Helldar\EnvSync\Services\Finder;
 use Helldar\EnvSync\Services\Parser;
 use Helldar\EnvSync\Services\Stringify;
 use Helldar\EnvSync\Services\Syncer;
 use Helldar\EnvSync\Support\Config;
+use Symfony\Component\Finder\Finder as SymfonyFinder;
 
 protected function syncer(): Syncer
 {
@@ -90,20 +91,16 @@ protected function syncer(): Syncer
     $stringify = new Stringify();
     $config    = new Config();
     $compiler  = new Compiler($stringify, $config);
+    $finder    = new Finder(SymfonyFinder::create());
 
-    return new Syncer($parser, $compiler);
+    return new Syncer($parser, $compiler, $finder);
 }
 
 protected function sync()
 {
-    // $this->syncer()
-    //    ->from('/** path to .env file */')
-    //    ->to('/** path to .env.example file */')
-    //    ->store();
-
     $this->syncer()
-       ->from(__DIR__ . '/../.env')
-       ->to(__DIR__ . '/../.env.example')
+       ->path(__DIR__)
+       ->filename('.env.example')
        ->store();
 }
 ```
@@ -112,10 +109,12 @@ If you want to define default values or specify which key values should be store
 
 ```php
 use Helldar\EnvSync\Services\Compiler;
+use Helldar\EnvSync\Services\Finder;
 use Helldar\EnvSync\Services\Parser;
 use Helldar\EnvSync\Services\Stringify;
 use Helldar\EnvSync\Services\Syncer;
 use Helldar\EnvSync\Support\Config;
+use Symfony\Component\Finder\Finder as SymfonyFinder;
 
 protected function syncer(): Syncer
 {
@@ -123,8 +122,9 @@ protected function syncer(): Syncer
     $stringify = new Stringify();
     $config    = new Config($this->config());
     $compiler  = new Compiler($stringify, $config);
+    $finder    = new Finder(SymfonyFinder::create());
 
-    return new Syncer($parser, $compiler);
+    return new Syncer($parser, $compiler, $finder);
 }
 
 protected function config(): array
@@ -132,12 +132,6 @@ protected function config(): array
     return require realpath(__DIR__ . '/your-path/your-config.php');
 }
 ```
-
-### Example
-
-<p align="center">
-    <img src="/.github/images/compare.png?raw=true" alt="Example"/>
-</p>
 
 You can also suggest your implementation by sending a PR. We will be glad 😊
 
