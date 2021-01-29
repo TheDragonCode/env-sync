@@ -23,6 +23,11 @@ final class ConfigurableTest extends SymfonyTestCase
     {
         $this->expectException(DirectoryNotFoundException::class);
 
-        $this->call('env:sync', ['--path' => base_path('foo')]);
+        $this->call('env:sync', ['--path' => '/foo']);
+    }
+
+    protected function getSyncConfig(): ?array
+    {
+        return $this->config();
     }
 }

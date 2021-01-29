@@ -25,6 +25,8 @@ abstract class SymfonyTestCase extends TestCase
     /** @var \Symfony\Bundle\FrameworkBundle\Console\Application */
     protected $application;
 
+    abstract protected function getSyncConfig(): ?array;
+
     protected function setUp(): void
     {
         $this->mockContainer();
@@ -76,7 +78,7 @@ abstract class SymfonyTestCase extends TestCase
 
     protected function getSyncer(): Syncer
     {
-        return Syncer::make();
+        return Syncer::make($this->getSyncConfig());
     }
 
     protected function getCommand(): Sync

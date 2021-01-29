@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class Sync extends Command
+class Sync extends Command
 {
     /** @var \Symfony\Component\Console\Input\InputInterface */
     protected $input;
@@ -37,6 +37,11 @@ final class Sync extends Command
             ->setName('env:sync')
             ->setDescription('Synchronizing environment settings with a preset')
             ->addOption('path', null, InputArgument::OPTIONAL, 'Gets the path to scan for files');
+    }
+
+    protected function syncerConfig(): array
+    {
+        return [];
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

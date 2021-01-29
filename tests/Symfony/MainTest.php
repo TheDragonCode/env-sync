@@ -26,4 +26,9 @@ final class MainTest extends SymfonyTestCase
 
         $this->call('env:sync', ['--path' => '/foo']);
     }
+
+    protected function getSyncConfig(): ?array
+    {
+        return null;
+    }
 }
