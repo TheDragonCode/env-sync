@@ -2,8 +2,12 @@
 
 namespace Helldar\EnvSync\Services;
 
+use Helldar\Support\Concerns\Makeable;
+
 final class Stringify
 {
+    use Makeable;
+
     public function get($value): string
     {
         switch (true) {

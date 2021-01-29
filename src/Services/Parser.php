@@ -2,10 +2,13 @@
 
 namespace Helldar\EnvSync\Services;
 
+use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Str;
 
 final class Parser
 {
+    use Makeable;
+
     protected $files = [];
 
     protected $keys = [];

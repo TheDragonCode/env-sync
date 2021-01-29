@@ -19,6 +19,6 @@ trait Files
 
     protected function targetPath(): string
     {
-        return $this->path . DIRECTORY_SEPARATOR . $this->filename;
+        return realpath($this->path) . DIRECTORY_SEPARATOR . $this->filename;
     }
 }

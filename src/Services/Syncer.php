@@ -2,11 +2,14 @@
 
 namespace Helldar\EnvSync\Services;
 
+use Helldar\EnvSync\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 final class Syncer
 {
+    use Makeable;
+
     protected $compiler;
 
     protected $parser;
@@ -52,6 +55,13 @@ final class Syncer
     public function store(): void
     {
         File::store($this->storePath(), $this->content());
+    }
+
+    public function setConfig(array $config): self
+    {
+        $this->compiler->setConfig($config);
+
+        return $this;
     }
 
     protected function files(): array

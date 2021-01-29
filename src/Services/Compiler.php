@@ -3,10 +3,13 @@
 namespace Helldar\EnvSync\Services;
 
 use Helldar\EnvSync\Support\Config;
+use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Str;
 
 final class Compiler
 {
+    use Makeable;
+
     protected $hides = ['CLIENT', 'HOOK', 'KEY', 'LOGIN', 'PASS', 'SECRET', 'TOKEN', 'USER'];
 
     protected $separator = "\n";
@@ -36,6 +39,13 @@ final class Compiler
         $this->split();
 
         return $this->compile();
+    }
+
+    public function setConfig(array $config): self
+    {
+        $this->config = $config;
+
+        return $this;
     }
 
     protected function map(): void
