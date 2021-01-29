@@ -13,6 +13,5 @@ abstract class SymfonyTestCase extends TestCase
 
     protected function call(string $command, array $options = []): void
     {
-        //
     }
 }
