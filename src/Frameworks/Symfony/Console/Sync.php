@@ -2,17 +2,11 @@
 
 namespace Helldar\EnvSync\Frameworks\Symfony\Console;
 
-use Helldar\EnvSync\Services\Compiler;
-use Helldar\EnvSync\Services\Finder;
-use Helldar\EnvSync\Services\Parser;
-use Helldar\EnvSync\Services\Stringify;
 use Helldar\EnvSync\Services\Syncer;
-use Helldar\EnvSync\Support\Config;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Finder\Finder as SymfonyFinder;
 
 final class Sync extends Command
 {
@@ -21,6 +15,23 @@ final class Sync extends Command
 
     /** @var \Symfony\Component\Console\Output\OutputInterface */
     protected $output;
+
+    protected $syncer;
+
+    public function __construct(Syncer $syncer)
+    {
+        parent::__construct();
+
+        $this->syncer = $syncer;
+    }
+
+    protected function configure()
+    {
+        $this
+            ->setName('env:sync')
+            ->setDescription('Synchronizing environment settings with a preset')
+            ->addOption('path', null, InputArgument::OPTIONAL, 'Gets the path to scan for files');
+    }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -36,17 +47,9 @@ final class Sync extends Command
         $this->info("The found keys were successfully saved to the {$filename} file.");
     }
 
-    protected function configure()
-    {
-        $this
-            ->setName('env:sync')
-            ->setDescription('Synchronizing environment settings with a preset')
-            ->addOption('path', InputArgument::OPTIONAL, 'Gets the path to scan for files');
-    }
-
     protected function sync(string $filename): void
     {
-        $this->syncer()
+        $this->syncer
             ->path($this->path())
             ->filename($filename)
             ->store();
@@ -59,7 +62,7 @@ final class Sync extends Command
 
     protected function filename(): string
     {
-        return '.env.example';
+        return '.env.production';
     }
 
     protected function optionPath(): ?string
@@ -70,17 +73,6 @@ final class Sync extends Command
     protected function realPath(): string
     {
         return realpath(base_path());
-    }
-
-    protected function syncer(): Syncer
-    {
-        $parser    = new Parser();
-        $stringify = new Stringify();
-        $config    = new Config();
-        $compiler  = new Compiler($stringify, $config);
-        $finder    = new Finder(SymfonyFinder::create());
-
-        return new Syncer($parser, $compiler, $finder);
     }
 
     protected function info(string $message): void
