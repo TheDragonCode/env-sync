@@ -19,7 +19,7 @@ abstract class SymfonyTestCase extends TestCase
     use Configurable;
     use Files;
 
-    /** @var \Symfony\Component\DependencyInjection\ContainerInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\DependencyInjection\ContainerInterface */
     protected $container;
 
     /** @var \Symfony\Bundle\FrameworkBundle\Console\Application */
@@ -38,7 +38,7 @@ abstract class SymfonyTestCase extends TestCase
     }
 
     /**
-     * @return \Symfony\Component\HttpKernel\Kernel|\PHPUnit\Framework\MockObject\MockBuilder
+     * @return \PHPUnit\Framework\MockObject\MockBuilder|\Symfony\Component\HttpKernel\Kernel
      */
     protected function mockKernel()
     {
