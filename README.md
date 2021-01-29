@@ -19,6 +19,7 @@
 * [Installation](#installation)
 * [How to use](#how-to-use)
     * [Laravel / Lumen Frameworks](#laravel--lumen-frameworks)
+    * [Symfony Framework](#symfony-framework)
     * [Native using](#native-using)
     * [Example](#example)
 
@@ -72,6 +73,10 @@ php artisan vendor:publish --provider="Helldar\EnvSync\ServiceProvider"
 ```
 
 Now you can change the file `config/env-sync.php`.
+
+### Symfony Framework
+
+> Coming soon...
 
 ### Native using
 
