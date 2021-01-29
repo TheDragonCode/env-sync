@@ -24,6 +24,6 @@ final class MainTest extends SymfonyTestCase
     {
         $this->expectException(DirectoryNotFoundException::class);
 
-        $this->call('env:sync', ['--path' => __DIR__ . '/foo']);
+        $this->call('env:sync', ['--path' => '/foo']);
     }
 }

@@ -2,10 +2,13 @@
 
 namespace Helldar\EnvSync\Services;
 
+use Helldar\Support\Concerns\Makeable;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 
 final class Finder
 {
+    use Makeable;
+
     protected $exclude_dirs = ['vendor', 'node_modules', '.idea', '.git', '.github', 'tests'];
 
     protected $names = ['*.php', '*.json', '*.yml', '*.yaml', '*.twig'];

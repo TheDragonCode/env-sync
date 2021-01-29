@@ -2,8 +2,12 @@
 
 namespace Helldar\EnvSync\Support;
 
+use Helldar\Support\Concerns\Makeable;
+
 final class Config
 {
+    use Makeable;
+
     /** @var array */
     protected $config;
 

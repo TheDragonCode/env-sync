@@ -2,11 +2,14 @@
 
 namespace Helldar\EnvSync\Services;
 
+use Helldar\EnvSync\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Filesystem\Directory;
 use Helldar\Support\Facades\Helpers\Filesystem\File;
 
 final class Syncer
 {
+    use Makeable;
+
     protected $compiler;
 
     protected $parser;

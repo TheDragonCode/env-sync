@@ -2,6 +2,7 @@
 
 namespace Helldar\EnvSync\Frameworks\Symfony\Console;
 
+use Composer\Config;
 use Helldar\EnvSync\Services\Syncer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -16,12 +17,17 @@ final class Sync extends Command
     /** @var \Symfony\Component\Console\Output\OutputInterface */
     protected $output;
 
+    /** @var \Composer\Config */
+    protected $config;
+
+    /** @var \Helldar\EnvSync\Services\Syncer */
     protected $syncer;
 
-    public function __construct(Syncer $syncer)
+    public function __construct(Config $config, Syncer $syncer)
     {
         parent::__construct();
 
+        $this->config = $config;
         $this->syncer = $syncer;
     }
 
@@ -33,7 +39,7 @@ final class Sync extends Command
             ->addOption('path', null, InputArgument::OPTIONAL, 'Gets the path to scan for files');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->input  = $input;
         $this->output = $output;
@@ -45,6 +51,8 @@ final class Sync extends Command
         $this->sync($filename);
 
         $this->info("The found keys were successfully saved to the {$filename} file.");
+
+        return 0;
     }
 
     protected function sync(string $filename): void
@@ -72,8 +80,9 @@ final class Sync extends Command
 
     protected function realPath(): string
     {
-        dd($this->getUsages());
-//        return realpath($this->pa);
+        $vendor = $this->config->get('vendor-dir');
+
+        return realpath($vendor . '/../');
     }
 
     protected function info(string $message): void

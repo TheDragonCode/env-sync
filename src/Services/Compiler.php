@@ -3,10 +3,13 @@
 namespace Helldar\EnvSync\Services;
 
 use Helldar\EnvSync\Support\Config;
+use Helldar\Support\Concerns\Makeable;
 use Helldar\Support\Facades\Helpers\Str;
 
 final class Compiler
 {
+    use Makeable;
+
     protected $hides = ['CLIENT', 'HOOK', 'KEY', 'LOGIN', 'PASS', 'SECRET', 'TOKEN', 'USER'];
 
     protected $separator = "\n";
