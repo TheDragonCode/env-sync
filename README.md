@@ -76,6 +76,21 @@ Now you can change the file `config/env-sync.php`.
 
 ### Symfony Framework
 
+Add the `EnvSyncBundle` to your application's kernel:
+
+```php
+use Helldar\EnvSync\Frameworks\Symfony\EnvSyncBundle;
+
+public function registerBundles()
+{
+    $bundles = [
+        // ...
+        new EnvSyncBundle()
+        // ...
+    ];
+}
+```
+
 Just execute the `php bin/console env:sync` command.
 
 You can also specify the invocation when executing the `composer update` command in `composer.json` file:
@@ -96,7 +111,7 @@ If you want to change the default configuration, configure the `env-sync` keys i
 
 ```
 env-sync:
-    forces: []
+    forces:
 ```
 
 ### Native using
