@@ -7,7 +7,7 @@ use Tests\Cases\SymfonyTestCase;
 
 final class ConfigurableTest extends SymfonyTestCase
 {
-    protected $type = 'laravel';
+    protected $type = 'symfony';
 
     protected $fixture_expected = 'expected-config';
 

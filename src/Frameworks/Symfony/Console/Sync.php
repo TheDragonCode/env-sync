@@ -62,7 +62,7 @@ final class Sync extends Command
 
     protected function filename(): string
     {
-        return '.env.production';
+        return '.env.example';
     }
 
     protected function optionPath(): ?string
@@ -72,7 +72,8 @@ final class Sync extends Command
 
     protected function realPath(): string
     {
-        return realpath(base_path());
+        dd($this->getUsages());
+//        return realpath($this->pa);
     }
 
     protected function info(string $message): void

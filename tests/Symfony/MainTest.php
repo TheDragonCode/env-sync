@@ -7,11 +7,14 @@ use Tests\Cases\SymfonyTestCase;
 
 final class MainTest extends SymfonyTestCase
 {
-    protected $type = 'laravel';
+    protected $type = 'symfony';
 
     public function testCustomPath()
     {
-        $this->call('env:sync', ['--path' => $this->path]);
+        $result = $this->call('env:sync', ['--path' => $this->path]);
+
+        $this->assertStringContainsString('Searching...', $result);
+        $this->assertStringContainsString('The found keys were successfully saved to the .env.example file.', $result);
 
         $this->assertFileExists($this->targetPath());
         $this->assertFileEquals($this->expected(), $this->targetPath());
@@ -21,6 +24,6 @@ final class MainTest extends SymfonyTestCase
     {
         $this->expectException(DirectoryNotFoundException::class);
 
-        $this->call('env:sync', ['--path' => base_path('foo')]);
+        $this->call('env:sync', ['--path' => __DIR__ . '/foo']);
     }
 }
