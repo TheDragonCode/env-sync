@@ -7,15 +7,26 @@ use Illuminate\Console\Command;
 
 final class Sync extends Command
 {
-    protected $signature = 'env:sync {--path=}';
+    protected $signature = 'env:sync {--path= : Gets the path to scan for files}';
 
     protected $description = 'Synchronizing environment settings with a preset.';
 
     public function handle(Syncer $syncer)
     {
+        $this->info('Searching...');
+
+        $filename = $this->filename();
+
+        $this->sync($syncer, $filename);
+
+        $this->info("The found keys were successfully saved to the {$filename} file.");
+    }
+
+    protected function sync(Syncer $syncer, string $filename): void
+    {
         $syncer
             ->path($this->path())
-            ->filename($this->filename())
+            ->filename($filename)
             ->store();
     }
 
