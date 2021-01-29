@@ -41,6 +41,13 @@ final class Compiler
         return $this->compile();
     }
 
+    public function setConfig(array $config): self
+    {
+        $this->config = $config;
+
+        return $this;
+    }
+
     protected function map(): void
     {
         foreach ($this->items as $key => &$value) {

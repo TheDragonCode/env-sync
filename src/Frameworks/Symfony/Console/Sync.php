@@ -29,6 +29,8 @@ class Sync extends Command
 
         $this->config = $config;
         $this->syncer = $syncer;
+
+        $this->setSyncerConfig();
     }
 
     protected function configure()
@@ -37,11 +39,6 @@ class Sync extends Command
             ->setName('env:sync')
             ->setDescription('Synchronizing environment settings with a preset')
             ->addOption('path', null, InputArgument::OPTIONAL, 'Gets the path to scan for files');
-    }
-
-    protected function syncerConfig(): array
-    {
-        return [];
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -100,5 +97,17 @@ class Sync extends Command
         $styled = $style ? "<$style>$string</$style>" : $string;
 
         $this->output->writeln($styled);
+    }
+
+    protected function syncerConfig(): ?array
+    {
+        return null;
+    }
+
+    protected function setSyncerConfig(): void
+    {
+        if ($config = $this->syncerConfig()) {
+            $this->syncer->setConfig($config);
+        }
     }
 }

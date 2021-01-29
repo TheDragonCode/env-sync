@@ -76,7 +76,28 @@ Now you can change the file `config/env-sync.php`.
 
 ### Symfony Framework
 
-> Coming soon...
+Just execute the `php bin/console env:sync` command.
+
+You can also specify the invocation when executing the `composer update` command in `composer.json` file:
+
+```json
+{
+    "scripts": {
+        "post-update-cmd": [
+            "php bin/console env:sync"
+        ]
+    }
+}
+```
+
+Now, every time you run the `composer update` command, the environment settings file will be synchronized.
+
+If you want to change the default configuration, configure the `env-sync` keys in your `config.yml`:
+
+```
+env-sync:
+    forces: []
+```
 
 ### Native using
 
