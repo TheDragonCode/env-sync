@@ -4,6 +4,7 @@ namespace Helldar\EnvSync\Services;
 
 use Helldar\EnvSync\Support\Config;
 use Helldar\Support\Concerns\Makeable;
+use Helldar\Support\Facades\Helpers\Instance;
 use Helldar\Support\Facades\Helpers\Str;
 
 final class Compiler
@@ -41,9 +42,14 @@ final class Compiler
         return $this->compile();
     }
 
-    public function setConfig(array $config): self
+    /**
+     * @param  \Helldar\EnvSync\Support\Config|array  $config
+     *
+     * @return $this
+     */
+    public function setConfig($config): self
     {
-        $this->config = $config;
+        $this->config = Instance::of($config, Config::class) ? $config : Config::make($config);
 
         return $this;
     }
