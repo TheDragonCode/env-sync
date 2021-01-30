@@ -4,8 +4,6 @@ namespace Tests\Concerns;
 
 trait Files
 {
-    protected $type = 'native';
-
     protected $fixture_expected = 'expected';
 
     protected $path = __DIR__ . '/../fixtures/source';
@@ -14,7 +12,7 @@ trait Files
 
     protected function expected(): string
     {
-        return realpath(__DIR__ . '/../fixtures/' . $this->type . '/' . $this->fixture_expected);
+        return realpath(__DIR__ . '/../fixtures/expected/' . $this->fixture_expected);
     }
 
     protected function targetPath(): string

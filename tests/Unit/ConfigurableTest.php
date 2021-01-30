@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Native;
+namespace Tests\Unit;
 
 use Helldar\Support\Exceptions\DirectoryNotFoundException;
-use Tests\Cases\NativeTestCase;
+use Tests\TestCase;
 
-final class ConfigurableTest extends NativeTestCase
+final class ConfigurableTest extends TestCase
 {
     protected $fixture_expected = 'expected-config';
 
@@ -39,7 +39,7 @@ final class ConfigurableTest extends NativeTestCase
         $this->service()->path('foo/bar/baz');
     }
 
-    protected function serviceConfig(): ?array
+    protected function serviceConfig(): array
     {
         return $this->config();
     }

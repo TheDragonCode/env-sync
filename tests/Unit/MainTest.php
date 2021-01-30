@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Native;
+namespace Tests\Unit;
 
 use Helldar\Support\Exceptions\DirectoryNotFoundException;
-use Tests\Cases\NativeTestCase;
+use Tests\TestCase;
 
-final class MainTest extends NativeTestCase
+final class MainTest extends TestCase
 {
     public function testContent()
     {
