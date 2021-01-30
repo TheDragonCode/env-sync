@@ -7,6 +7,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension as BaseExtension;
 
+/**
+ * @deprecated Starting with version 2.0, this functionality will be moved to the andrey-helldar/env-sync-symfony package.
+ */
 class Extension extends BaseExtension
 {
     public function load(array $configs, ContainerBuilder $container)

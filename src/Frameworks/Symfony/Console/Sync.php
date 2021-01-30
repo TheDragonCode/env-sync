@@ -9,6 +9,9 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * @deprecated Starting with version 2.0, this functionality will be moved to the andrey-helldar/env-sync-symfony package.
+ */
 class Sync extends Command
 {
     /** @var \Symfony\Component\Console\Input\InputInterface */

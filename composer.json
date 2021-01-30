@@ -29,6 +29,10 @@
         "symfony/framework-bundle": "^4.0|^5.0",
         "symfony/phpunit-bridge": "^4.0|^5.0"
     },
+    "suggest": {
+        "andrey-helldar/env-sync-laravel": "env-sync package adapter for Laravel framework",
+        "andrey-helldar/env-sync-symfony": "env-sync package adapter for Symfony framework"
+    },
     "autoload": {
         "psr-4": {
             "Helldar\\EnvSync\\": "src"
@@ -50,6 +54,12 @@
             "providers": [
                 "Helldar\\EnvSync\\Frameworks\\Laravel\\ServiceProvider"
             ]
-        }
+        },
+        "thanks": [
+            {
+                "name": "andrey-helldar/support",
+                "url": "https://github.com/andrey-helldar/support"
+            }
+        ]
     }
 }

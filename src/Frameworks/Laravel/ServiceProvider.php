@@ -6,6 +6,9 @@ use Helldar\EnvSync\Frameworks\Laravel\Console\Sync;
 use Helldar\EnvSync\Support\Config;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
+/**
+ * @deprecated Starting with version 2.0, this functionality will be moved to the andrey-helldar/env-sync-laravel package.
+ */
 final class ServiceProvider extends BaseServiceProvider
 {
     protected $config_path = __DIR__ . '/../../../config/env-sync.php';

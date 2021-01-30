@@ -5,6 +5,9 @@ namespace Helldar\EnvSync\Frameworks\Laravel\Console;
 use Helldar\EnvSync\Services\Syncer;
 use Illuminate\Console\Command;
 
+/**
+ * @deprecated Starting with version 2.0, this functionality will be moved to the andrey-helldar/env-sync-laravel package.
+ */
 final class Sync extends Command
 {
     protected $signature = 'env:sync {--path= : Gets the path to scan for files}';
