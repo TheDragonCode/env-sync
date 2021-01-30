@@ -11,9 +11,9 @@ final class Config
     /** @var array */
     protected $config;
 
-    public function __construct(array $config = null)
+    public function __construct(array $config = [])
     {
-        $this->config = $config ?: $this->load();
+        $this->config = $config;
     }
 
     public function forces(): array
@@ -24,10 +24,5 @@ final class Config
     protected function get(string $key, $default = null)
     {
         return $this->config[$key] ?? $default;
-    }
-
-    protected function load(): array
-    {
-        return require realpath(__DIR__ . '/../../config/env-sync.php');
     }
 }

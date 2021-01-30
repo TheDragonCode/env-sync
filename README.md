@@ -16,18 +16,21 @@
 
 > ATTENTION!
 >
-> Package version 1.0 includes implementation of console commands for Laravel and Symfony frameworks.
-Since version 2.0, implementations have been moved to separate packages. If you are using Laravel framework - install [andrey-helldar/env-sync-laravel](https://github.com/andrey-helldar/env-sync-laravel) package, if Symfony - [andrey-helldar/env-sync-symfony](https://github.com/andrey-helldar/env-sync-symfony).
+> Package version 1.0 includes implementation of console commands for Laravel and Symfony frameworks. Since version 2.0, implementations have been moved to separate packages. If you are using Laravel framework - install [andrey-helldar/env-sync-laravel](https://github.com/andrey-helldar/env-sync-laravel) package, if Symfony - [andrey-helldar/env-sync-symfony](https://github.com/andrey-helldar/env-sync-symfony).
 
 ## Table of contents
 
 * [Installation](#installation)
 * [How to use](#how-to-use)
-    * [Laravel / Lumen Frameworks](#laravel--lumen-frameworks)
-    * [Symfony Framework](#symfony-framework)
+    * [Frameworks](#frameworks)
     * [Native using](#native-using)
 
 ## Installation
+
+> If you are using the Laravel framework, then install the [andrey-helldar/env-sync-laravel](https://github.com/andrey-helldar/env-sync-laravel) package instead.
+>
+> If you are using the Laravel framework, then install the [andrey-helldar/env-sync-symfony](https://github.com/andrey-helldar/env-sync-symfony) package instead.
+
 
 To get the latest version of `Environment Synchronization`, simply require the project using [Composer](https://getcomposer.org):
 
@@ -40,7 +43,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 ```json
 {
     "require-dev": {
-        "andrey-helldar/env-sync": "^1.2"
+        "andrey-helldar/env-sync": "^2.0"
     }
 }
 ```
@@ -52,94 +55,21 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 >
 > Also, all keys are sorted alphabetically.
 
-### Laravel / Lumen Frameworks
+### Frameworks
 
-Just execute the `php artisan env:sync` command.
-
-You can also specify the invocation when executing the `composer update` command in `composer.json` file:
-
-```json
-{
-    "scripts": {
-        "post-update-cmd": [
-            "php artisan env:sync"
-        ]
-    }
-}
-```
-
-Now, every time you run the `composer update` command, the environment settings file will be synchronized.
-
-If you want to force the stored values, you can change the configuration file by publishing it with the command:
-
-```bash
-php artisan vendor:publish --provider="Helldar\EnvSync\ServiceProvider"
-```
-
-Now you can change the file `config/env-sync.php`.
-
-### Symfony Framework
-
-Add the `EnvSyncBundle` to your application's kernel:
-
-```php
-use Helldar\EnvSync\Frameworks\Symfony\EnvSyncBundle;
-
-public function registerBundles()
-{
-    $bundles = [
-        // ...
-        new EnvSyncBundle()
-        // ...
-    ];
-}
-```
-
-Just execute the `php bin/console env:sync` command.
-
-You can also specify the invocation when executing the `composer update` command in `composer.json` file:
-
-```json
-{
-    "scripts": {
-        "post-update-cmd": [
-            "php bin/console env:sync"
-        ]
-    }
-}
-```
-
-Now, every time you run the `composer update` command, the environment settings file will be synchronized.
-
-If you want to change the default configuration, configure the `env-sync` keys in your `config.yml`:
-
-```
-env-sync:
-    forces:
-```
+* Laravel / Lumen Frameworks - See the documentation in [this repository](https://github.com/andrey-helldar/env-sync-laravel).
+* Symfony Framework - See the documentation in [this repository](https://github.com/andrey-helldar/env-sync-symfony).
 
 ### Native using
 
 To call a command in your application, you need to do the following:
 
 ```php
-use Helldar\EnvSync\Services\Compiler;
-use Helldar\EnvSync\Services\Finder;
-use Helldar\EnvSync\Services\Parser;
-use Helldar\EnvSync\Services\Stringify;
 use Helldar\EnvSync\Services\Syncer;
-use Helldar\EnvSync\Support\Config;
-use Symfony\Component\Finder\Finder as SymfonyFinder;
 
 protected function syncer(): Syncer
 {
-    $parser    = new Parser();
-    $stringify = new Stringify();
-    $config    = new Config();
-    $compiler  = new Compiler($stringify, $config);
-    $finder    = new Finder(SymfonyFinder::create());
-
-    return new Syncer($parser, $compiler, $finder);
+    return Syncer::make();
 }
 
 protected function sync()
@@ -154,23 +84,11 @@ protected function sync()
 If you want to define default values or specify which key values should be stored, you need to pass an array to the constructor of the `Config` class:
 
 ```php
-use Helldar\EnvSync\Services\Compiler;
-use Helldar\EnvSync\Services\Finder;
-use Helldar\EnvSync\Services\Parser;
-use Helldar\EnvSync\Services\Stringify;
 use Helldar\EnvSync\Services\Syncer;
-use Helldar\EnvSync\Support\Config;
-use Symfony\Component\Finder\Finder as SymfonyFinder;
 
 protected function syncer(): Syncer
 {
-    $parser    = new Parser();
-    $stringify = new Stringify();
-    $config    = new Config($this->config());
-    $compiler  = new Compiler($stringify, $config);
-    $finder    = new Finder(SymfonyFinder::create());
-
-    return new Syncer($parser, $compiler, $finder);
+    return Syncer::make($this->config());
 }
 
 protected function config(): array
@@ -181,7 +99,7 @@ protected function config(): array
 
 You can also suggest your implementation by sending a PR. We will be glad 😊
 
-[badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/env-sync/native?style=flat-square
+[badge_build]:          https://img.shields.io/github/workflow/status/andrey-helldar/env-sync/phpunit?style=flat-square
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/andrey-helldar/env-sync.svg?style=flat-square
 
