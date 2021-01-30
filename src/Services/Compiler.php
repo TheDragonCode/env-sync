@@ -43,7 +43,7 @@ final class Compiler
     }
 
     /**
-     * @param  \Helldar\EnvSync\Support\Config|array  $config
+     * @param  array|\Helldar\EnvSync\Support\Config  $config
      *
      * @return $this
      */
