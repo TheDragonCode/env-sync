@@ -1,4 +1,4 @@
-name : native
+name : phpunit
 on : [ push ]
 
 jobs :
