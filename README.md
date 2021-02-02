@@ -29,7 +29,7 @@
 
 > If you are using the Laravel framework, then install the [andrey-helldar/env-sync-laravel](https://github.com/andrey-helldar/env-sync-laravel) package instead.
 >
-> If you are using the Laravel framework, then install the [andrey-helldar/env-sync-symfony](https://github.com/andrey-helldar/env-sync-symfony) package instead.
+> If you are using the Symfony framework, then install the [andrey-helldar/env-sync-symfony](https://github.com/andrey-helldar/env-sync-symfony) package instead.
 
 
 To get the latest version of `Environment Synchronization`, simply require the project using [Composer](https://getcomposer.org):
