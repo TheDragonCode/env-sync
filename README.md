@@ -14,10 +14,6 @@
 [![Total Downloads][badge_downloads]][link_packagist]
 [![License][badge_license]][link_license]
 
-> ATTENTION!
->
-> Package version 1.0 includes implementation of console commands for Laravel and Symfony frameworks. Since version 2.0, implementations have been moved to separate packages. If you are using Laravel framework - install [andrey-helldar/env-sync-laravel](https://github.com/andrey-helldar/env-sync-laravel) package, if Symfony - [andrey-helldar/env-sync-symfony](https://github.com/andrey-helldar/env-sync-symfony).
-
 ## Table of contents
 
 * [Installation](#installation)
