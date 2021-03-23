@@ -124,6 +124,6 @@ final class Compiler
 
     protected function section(string $key): string
     {
-        return explode('_', $key, 2)[0];
+        return Str::before($key, '_');
     }
 }
