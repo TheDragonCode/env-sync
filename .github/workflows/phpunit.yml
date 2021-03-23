@@ -9,10 +9,9 @@ jobs :
             fail-fast : true
             matrix :
                 php : [ "7.3", "7.4", "8.0" ]
-                symfony : [ "4.0", "5.0" ]
                 support : [ "2.0", "3.0" ]
 
-        name : PHP ${{ matrix.php }}, Symfony ${{ matrix.symfony }}, Support ${{ matrix.support }}
+        name : PHP ${{ matrix.php }}, Support ${{ matrix.support }}
 
         steps :
             -   name : Checkout code
@@ -30,7 +29,7 @@ jobs :
 
             -   name : Install dependencies
                 run : |
-                    composer require symfony/finder:^${{ matrix.symfony }} andrey-helldar/support:^${{ matrix.support }}
+                    composer require andrey-helldar/support:^${{ matrix.support }}
                     composer update --prefer-stable --prefer-dist --no-progress --no-interaction
 
             -   name : Execute tests
