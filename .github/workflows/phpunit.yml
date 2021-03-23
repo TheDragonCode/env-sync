@@ -27,7 +27,9 @@ jobs :
                 run : composer self-update
 
             -   name : Install dependencies
-                run : composer update --prefer-stable --prefer-dist --no-progress --no-interaction
+                run : |
+                    composer require andrey-helldar/support:^2.5
+                    composer update --prefer-stable --prefer-dist --no-progress --no-interaction
 
             -   name : Execute tests
                 run : sudo vendor/bin/phpunit
