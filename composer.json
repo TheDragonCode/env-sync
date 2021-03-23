@@ -16,7 +16,7 @@
     },
     "require": {
         "php": "^7.3|^8.0",
-        "andrey-helldar/support": "^2.5",
+        "andrey-helldar/support": "^2.5|^3.0",
         "symfony/finder": "^4.0|^5.0"
     },
     "require-dev": {
