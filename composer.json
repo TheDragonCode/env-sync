@@ -1,9 +1,9 @@
 {
-    "name": "andrey-helldar/env-sync",
+    "name": "dragon-code/env-sync",
     "description": "Keeping your .env.example is up to date",
     "type": "library",
     "license": "MIT",
-    "keywords": ["env", "dotenv", "environment", "sync", "laravel", "symfony", "yii", "yii2", "framework", "native"],
+    "keywords": ["env", "dotenv", "environment", "sync", "laravel", "symfony", "yii", "yii2", "framework", "native", "dragon-code", "dragon", "andrey-helldar"],
     "authors": [
         {
             "name": "Andrey Helldar",
@@ -11,25 +11,24 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/andrey-helldar/env-sync/issues",
-        "source": "https://github.com/andrey-helldar/env-sync"
+        "issues": "https://github.com/TheDragonCode/env-sync/issues",
+        "source": "https://github.com/TheDragonCode/env-sync"
     },
     "require": {
         "php": "^7.3|^8.0",
-        "andrey-helldar/support": "^2.5|^3.0|^4.0",
+        "dragon-code/support": "^5.0",
         "symfony/finder": "^4.0|^5.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.3.1",
-        "phpunit/phpunit": "^8.0|^9.0"
+        "phpunit/phpunit": "^9.0"
     },
     "suggest": {
-        "andrey-helldar/env-sync-laravel": "env-sync package adapter for Laravel framework",
-        "andrey-helldar/env-sync-symfony": "env-sync package adapter for Symfony framework"
+        "dragon-code/env-sync-laravel": "env-sync package adapter for Laravel framework"
     },
     "autoload": {
         "psr-4": {
-            "Helldar\\EnvSync\\": "src"
+            "DragonCode\\EnvSync\\": "src"
         }
     },
     "autoload-dev": {
@@ -42,13 +41,5 @@
         "sort-packages": true
     },
     "minimum-stability": "stable",
-    "prefer-stable": true,
-    "extra": {
-        "thanks": [
-            {
-                "name": "andrey-helldar/support",
-                "url": "https://github.com/andrey-helldar/support"
-            }
-        ]
-    }
+    "prefer-stable": true
 }

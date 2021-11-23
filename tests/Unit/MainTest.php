@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Helldar\Support\Exceptions\DirectoryNotFoundException;
+use DragonCode\Support\Exceptions\DirectoryNotFoundException;
 use Tests\TestCase;
 
-final class MainTest extends TestCase
+class MainTest extends TestCase
 {
     public function testContent()
     {

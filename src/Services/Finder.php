@@ -1,11 +1,11 @@
 <?php
 
-namespace Helldar\EnvSync\Services;
+namespace DragonCode\EnvSync\Services;
 
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Support\Concerns\Makeable;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 
-final class Finder
+class Finder
 {
     use Makeable;
 

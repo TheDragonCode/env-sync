@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use Helldar\Support\Exceptions\DirectoryNotFoundException;
+use DragonCode\Support\Exceptions\DirectoryNotFoundException;
 use Tests\TestCase;
 
-final class ConfigurableTest extends TestCase
+class ConfigurableTest extends TestCase
 {
     protected $fixture_expected = 'expected-config';
 
