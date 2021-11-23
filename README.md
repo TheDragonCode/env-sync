@@ -32,7 +32,7 @@ Or manually update `require-dev` block of `composer.json` and run `composer upda
 
 ### Upgrade from `andrey-helldar/env-sync`
 
-1. In your `composer.json` file, replace `"andrey-helldar/env-sync": "^1.0"` with `"dragon-code/env-sync": "^3.0"`.
+1. In your `composer.json` file, replace `"andrey-helldar/env-sync": "^2.0"` with `"dragon-code/env-sync": "^3.0"`.
 2. Replace the `Helldar\EnvSync` namespace with `DragonCode\EnvSync` in your app;
 3. Run the command `composer update`.
 4. Profit!
