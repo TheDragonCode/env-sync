@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Helldar\EnvSync\Services\Syncer;
+use DragonCode\EnvSync\Services\Syncer;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use Tests\Concerns\Configurable;
 use Tests\Concerns\Files;

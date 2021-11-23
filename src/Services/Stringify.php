@@ -1,10 +1,11 @@
 <?php
 
-namespace Helldar\EnvSync\Services;
+namespace DragonCode\EnvSync\Services;
 
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Facades\Helpers\Boolean;
 
-final class Stringify
+class Stringify
 {
     use Makeable;
 
@@ -40,6 +41,6 @@ final class Stringify
 
     public function fromBool(bool $value): string
     {
-        return $value ? 'true' : 'false';
+        return Boolean::convertToString($value);
     }
 }

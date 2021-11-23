@@ -1,19 +1,22 @@
 <?php
 
-namespace Helldar\EnvSync\Services;
+namespace DragonCode\EnvSync\Services;
 
-use Helldar\EnvSync\Support\Config;
-use Helldar\Support\Concerns\Makeable;
-use Helldar\Support\Facades\Helpers\Instance;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\EnvSync\Support\Config;
+use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Facades\Helpers\Instance;
+use DragonCode\Support\Facades\Helpers\OS;
+use DragonCode\Support\Facades\Helpers\Str;
 
-final class Compiler
+class Compiler
 {
     use Makeable;
 
     protected $hides = ['CLIENT', 'HOOK', 'KEY', 'LOGIN', 'PASS', 'SECRET', 'TOKEN', 'USER'];
 
-    protected $separator = "\n";
+    protected $unix_separator = "\n";
+
+    protected $windows_separator = "\r\n";
 
     protected $stringify;
 
@@ -43,7 +46,7 @@ final class Compiler
     }
 
     /**
-     * @param  array|\Helldar\EnvSync\Support\Config  $config
+     * @param  array|\DragonCode\EnvSync\Support\Config  $config
      *
      * @return $this
      */
@@ -80,15 +83,17 @@ final class Compiler
     {
         $result = '';
 
+        $separator = $this->getSeparator();
+
         foreach ($this->items as $values) {
             foreach ($values as $key => $value) {
-                $result .= "{$key}={$value}{$this->separator}";
+                $result .= "{$key}={$value}{$separator}";
             }
 
-            $result .= $this->separator;
+            $result .= $separator;
         }
 
-        return trim($result) . $this->separator;
+        return trim($result) . $separator;
     }
 
     protected function replace(string $key, $value)
@@ -125,5 +130,12 @@ final class Compiler
     protected function section(string $key): string
     {
         return Str::before($key, '_');
+    }
+
+    protected function getSeparator(): string
+    {
+        return OS::isWindows()
+            ? $this->windows_separator
+            : $this->unix_separator;
     }
 }

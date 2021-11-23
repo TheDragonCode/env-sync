@@ -1,11 +1,11 @@
 <?php
 
-namespace Helldar\EnvSync\Services;
+namespace DragonCode\EnvSync\Services;
 
-use Helldar\Support\Concerns\Makeable;
-use Helldar\Support\Facades\Helpers\Str;
+use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Facades\Helpers\Str;
 
-final class Parser
+class Parser
 {
     use Makeable;
 

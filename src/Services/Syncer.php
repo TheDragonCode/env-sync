@@ -1,12 +1,12 @@
 <?php
 
-namespace Helldar\EnvSync\Services;
+namespace DragonCode\EnvSync\Services;
 
-use Helldar\EnvSync\Concerns\Makeable;
-use Helldar\Support\Facades\Helpers\Filesystem\Directory;
-use Helldar\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\EnvSync\Concerns\Makeable;
+use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
+use DragonCode\Support\Facades\Helpers\Filesystem\File;
 
-final class Syncer
+class Syncer
 {
     use Makeable;
 

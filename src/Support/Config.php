@@ -1,10 +1,10 @@
 <?php
 
-namespace Helldar\EnvSync\Support;
+namespace DragonCode\EnvSync\Support;
 
-use Helldar\Support\Concerns\Makeable;
+use DragonCode\Support\Concerns\Makeable;
 
-final class Config
+class Config
 {
     use Makeable;
 
