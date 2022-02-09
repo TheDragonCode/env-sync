@@ -25,7 +25,7 @@ class Finder
     }
 
     /**
-     * @param  string|string[]  $path
+     * @param string|string[] $path
      *
      * @return array
      */
@@ -37,7 +37,7 @@ class Finder
     }
 
     /**
-     * @param  string|string[]  $path
+     * @param string|string[] $path
      */
     protected function search($path): void
     {
@@ -47,7 +47,7 @@ class Finder
     }
 
     /**
-     * @param  string|string[]  $path
+     * @param string|string[] $path
      *
      * @return \Symfony\Component\Finder\Finder
      */
