@@ -12,7 +12,7 @@ use Symfony\Component\Finder\Finder as SymfonyFinder;
 
 trait Makeable
 {
-    public static function make(array $config = null): Syncer
+    public static function make(?array $config = null): Syncer
     {
         $parser    = static::makeParser();
         $stringify = static::makeStringify();
@@ -33,7 +33,7 @@ trait Makeable
         return Stringify::make();
     }
 
-    protected static function makeConfig(array $config = null): Config
+    protected static function makeConfig(?array $config = null): Config
     {
         return Config::make($config);
     }

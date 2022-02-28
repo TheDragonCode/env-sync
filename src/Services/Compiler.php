@@ -46,7 +46,7 @@ class Compiler
     }
 
     /**
-     * @param  array|\DragonCode\EnvSync\Support\Config  $config
+     * @param array|\DragonCode\EnvSync\Support\Config $config
      *
      * @return $this
      */
