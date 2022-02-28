@@ -7,20 +7,20 @@ interface Bar
 
 class Foo
 {
-    function first()
+    public function first()
     {
         $this->accessToken = $token ?? getenv(static::BOT_TOKEN_ENV_NAME);
     }
 
     public function get(string $key, $default = null)
     {
-        @putenv('LINES='.$this->terminal->getHeight());
-        @putenv('COLUMNS='.$this->terminal->getWidth());
-        @putenv('SHELL_VERBOSITY='.$shellVerbosity);
+        @putenv('LINES=' . $this->terminal->getHeight());
+        @putenv('COLUMNS=' . $this->terminal->getWidth());
+        @putenv('SHELL_VERBOSITY=' . $shellVerbosity);
 
         putenv("{$name}={$value}");
 
-        $_ENV['SHELL_VERBOSITY'] = $shellVerbosity;
+        $_ENV['SHELL_VERBOSITY']    = $shellVerbosity;
         $_SERVER['SHELL_VERBOSITY'] = $shellVerbosity;
 
         $arr = [
