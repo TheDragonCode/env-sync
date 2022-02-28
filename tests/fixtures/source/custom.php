@@ -26,5 +26,7 @@ class Foo
         $arr = [
             'kernel.runtime_environment' => '%env(default:kernel.environment:APP_RUNTIME_ENV)%',
         ];
+
+        env('ConEmuANSI');
     }
 }
