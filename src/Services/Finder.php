@@ -3,6 +3,7 @@
 namespace DragonCode\EnvSync\Services;
 
 use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Facades\Helpers\Arr;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 
 class Finder
@@ -66,6 +67,6 @@ class Finder
 
     protected function files(): array
     {
-        return $this->files;
+        return Arr::sort($this->files);
     }
 }

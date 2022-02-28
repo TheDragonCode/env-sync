@@ -3,6 +3,7 @@
 namespace DragonCode\EnvSync\Support;
 
 use DragonCode\Support\Concerns\Makeable;
+use DragonCode\Support\Facades\Helpers\Arr;
 
 class Config
 {
@@ -23,6 +24,6 @@ class Config
 
     protected function get(string $key, $default = null)
     {
-        return $this->config[$key] ?? $default;
+        return Arr::get($this->config, $key, $default);
     }
 }
