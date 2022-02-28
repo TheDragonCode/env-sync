@@ -10,11 +10,11 @@ class Finder
 {
     use Makeable;
 
+    public const CONTAINS = ['env(', 'getenv('];
+
     protected $exclude_dirs = ['node_modules', '.idea', '.git', '.github', 'tests'];
 
     protected $names = ['*.php', '*.json', '*.yml', '*.yaml', '*.twig'];
-
-    protected $contains = ['env(', 'getenv('];
 
     protected $instance;
 
@@ -57,7 +57,7 @@ class Finder
         return $this->instance->in($path)->files()
             ->exclude($this->exclude_dirs)
             ->name($this->names)
-            ->contains($this->contains);
+            ->contains(self::CONTAINS);
     }
 
     protected function push(string $path): void
