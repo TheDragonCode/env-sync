@@ -47,7 +47,11 @@ class Parser
         foreach ($this->match($content) as $match) {
             [$key, $value] = $this->split($match);
 
-            if (Str::contains((string) $value, ['getenv', 'env'])) {
+            if (Str::contains($key, [':', '$', '=', '{', '}'])) {
+                continue;
+            }
+
+            if (Str::contains((string) $value, Finder::CONTAINS)) {
                 $sub_key = $this->subkey($value);
 
                 $value = $this->keys[$sub_key] ?? null;
