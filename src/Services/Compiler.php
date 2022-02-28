@@ -69,6 +69,7 @@ class Compiler
 
         foreach ($this->items as $key => $value) {
             $section = $this->section($key);
+            $key     = $this->key($key);
 
             $items[$section][$key] = $value;
         }
@@ -126,7 +127,12 @@ class Compiler
 
     protected function section(string $key): string
     {
-        return Str::before($key, '_');
+        return (string) Str::of($key)->before('_')->upper();
+    }
+
+    protected function key(string $key): string
+    {
+        return Str::upper($key);
     }
 
     protected function getSeparator(): string
