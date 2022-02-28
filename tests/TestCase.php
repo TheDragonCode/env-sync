@@ -10,7 +10,6 @@ use Tests\Concerns\Files;
 abstract class TestCase extends BaseTestCase
 {
     use Configurable;
-
     use Files;
 
     protected function service(): Syncer
