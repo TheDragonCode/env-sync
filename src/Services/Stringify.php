@@ -20,7 +20,7 @@ class Stringify
                 return $value;
 
             default:
-                return 'null';
+                return '';
         }
     }
 
