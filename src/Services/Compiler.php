@@ -5,7 +5,6 @@ namespace DragonCode\EnvSync\Services;
 use DragonCode\EnvSync\Support\Config;
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Helpers\Instance;
-use DragonCode\Support\Facades\Helpers\OS;
 use DragonCode\Support\Facades\Helpers\Str;
 
 class Compiler
@@ -14,9 +13,7 @@ class Compiler
 
     protected $hides = ['CLIENT', 'HOOK', 'KEY', 'LOGIN', 'PASS', 'SECRET', 'TOKEN', 'USER'];
 
-    protected $unix_separator = "\n";
-
-    protected $windows_separator = "\r\n";
+    protected $separator = PHP_EOL;
 
     protected $stringify;
 
@@ -134,8 +131,6 @@ class Compiler
 
     protected function getSeparator(): string
     {
-        return OS::isWindows()
-            ? $this->windows_separator
-            : $this->unix_separator;
+        return $this->separator;
     }
 }

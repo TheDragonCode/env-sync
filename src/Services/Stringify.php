@@ -45,7 +45,7 @@ class Stringify
 
     public function isNull($value): bool
     {
-        return is_null($value) || Str::lower($value) === 'null';
+        return is_null($value) || (is_string($value) && Str::lower($value) === 'null');
     }
 
     public function fromBool(bool $value): string
