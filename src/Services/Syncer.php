@@ -57,13 +57,6 @@ class Syncer
         File::store($this->storePath(), $this->content());
     }
 
-    public function setConfig(array $config): self
-    {
-        $this->compiler->setConfig($config);
-
-        return $this;
-    }
-
     protected function files(): array
     {
         return $this->finder->get($this->path);
