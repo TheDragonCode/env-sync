@@ -4,7 +4,6 @@ namespace DragonCode\EnvSync\Services;
 
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Helpers\Boolean;
-use DragonCode\Support\Facades\Helpers\Str;
 
 class Stringify
 {
@@ -15,9 +14,6 @@ class Stringify
         switch (true) {
             case $this->isBool($value):
                 return $this->fromBool($value);
-
-            case $this->isNull($value):
-                return $this->fromNull();
 
             case $this->isNumeric($value):
             case $this->isString($value):
@@ -43,18 +39,8 @@ class Stringify
         return is_string($value) && ! empty($value);
     }
 
-    public function isNull($value): bool
-    {
-        return is_null($value) || (is_string($value) && Str::lower($value) === 'null');
-    }
-
     public function fromBool(bool $value): string
     {
         return Boolean::convertToString($value);
-    }
-
-    public function fromNull(): string
-    {
-        return '';
     }
 }
