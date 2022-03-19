@@ -27,9 +27,11 @@ class Compiler
         $this->config    = $config;
     }
 
-    public function items(array $items): self
+    public function items(array $items, array $target = []): self
     {
-        $this->items = $this->map($items);
+        $this->items = $this->map(
+            $this->filter($items, $target)
+        );
 
         return $this;
     }
@@ -56,6 +58,15 @@ class Compiler
         $this->config = Instance::of($config, Config::class) ? $config : Config::make($config);
 
         return $this;
+    }
+
+    protected function filter(array $items, array $target): array
+    {
+        if (! empty($target)) {
+            return array_intersect_key($target, $items);
+        }
+
+        return $items;
     }
 
     protected function map(array $items): array

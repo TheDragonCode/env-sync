@@ -1,0 +1,5 @@
+APP_DEBUG=true
+APP_ENV=testing
+APP_KEY=
+APP_NAME=Laravel
+APP_URL=https://example.com

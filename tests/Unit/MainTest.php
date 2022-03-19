@@ -42,6 +42,22 @@ class MainTest extends TestCase
         $this->assertFileEquals($this->expected(), $this->targetPath());
     }
 
+    public function testSync()
+    {
+        $source   = __DIR__ . '/../fixtures/source/.env.sync';
+        $target   = __DIR__ . '/../fixtures/expected/expected-sync';
+        $expected = __DIR__ . '/../fixtures/source/.env.example';
+
+        $service = $this->service();
+
+        $service->path($this->path);
+        $service->filename($this->filename, $source);
+
+        $service->update($expected);
+
+        $this->assertFileEquals($this->expected('expected-sync'), $target);
+    }
+
     public function testCustomPathFailed()
     {
         $this->expectException(DirectoryNotFoundException::class);

@@ -20,6 +20,8 @@ class Syncer
 
     protected $filename;
 
+    protected $sync;
+
     public function __construct(Parser $parser, Compiler $compiler, Finder $finder)
     {
         $this->parser   = $parser;
@@ -36,9 +38,10 @@ class Syncer
         return $this;
     }
 
-    public function filename(string $filename): self
+    public function filename(string $filename, ?string $sync_with = null): self
     {
         $this->filename = $filename;
+        $this->sync     = $sync_with;
 
         return $this;
     }
@@ -53,6 +56,13 @@ class Syncer
         return $this->prepared()->get();
     }
 
+    public function update(?string $filename = null): void
+    {
+        $path = $filename ?: $this->sync;
+
+        File::store($path, $this->content());
+    }
+
     public function store(): void
     {
         File::store($this->storePath(), $this->content());
@@ -64,7 +74,14 @@ class Syncer
 
         $items = $this->parsed($files);
 
-        return $this->compiler($items);
+        $target = $this->sync ? $this->parser($this->sync) : [];
+
+        return $this->compiler($items, $target);
+    }
+
+    protected function parser(string $path): array
+    {
+        return Reader::make()->from($path);
     }
 
     protected function files(): array
@@ -77,9 +94,9 @@ class Syncer
         return $this->parser->files($files)->get();
     }
 
-    protected function compiler(array $items): Compiler
+    protected function compiler(array $items, array $target = []): Compiler
     {
-        return $this->compiler->items($items);
+        return $this->compiler->items($items, $target);
     }
 
     protected function storePath(): string
