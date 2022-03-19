@@ -89,11 +89,16 @@ class Syncer
 
     protected function compiler(array $items, array $target = []): Compiler
     {
-        return $this->compiler->items($items, $target);
+        return $this->compiler->items($items, $target, $this->hasSecure());
     }
 
     protected function targetPath(): string
     {
         return rtrim($this->path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $this->filename;
+    }
+
+    protected function hasSecure(): bool
+    {
+        return ! $this->sync;
     }
 }

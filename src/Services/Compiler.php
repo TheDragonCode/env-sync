@@ -27,11 +27,11 @@ class Compiler
         $this->config    = $config;
     }
 
-    public function items(array $items, array $target = []): self
+    public function items(array $items, array $target = [], bool $secure = true): self
     {
-        $this->items = $this->map(
-            $this->filter($items, $target)
-        );
+        $filtered = $this->filter($items, $target);
+
+        $this->items = $this->map($filtered, $secure);
 
         return $this;
     }
@@ -69,14 +69,14 @@ class Compiler
         return $items;
     }
 
-    protected function map(array $items): array
+    protected function map(array $items, bool $secure): array
     {
         $result = [];
 
         foreach ($items as $key => $value) {
             $key = Str::upper($key);
 
-            $replaced = $this->replace($key, $value);
+            $replaced = $this->replace($key, $value, $secure);
 
             $result[$key] = $this->parseStringValue($replaced);
         }
@@ -117,9 +117,9 @@ class Compiler
         return trim($result) . $separator;
     }
 
-    protected function replace(string $key, $value)
+    protected function replace(string $key, $value, bool $secure)
     {
-        return $this->isForceHiding($key) ? null : $this->value($key, $value);
+        return $this->isForceHiding($key) && $secure ? null : $this->value($key, $value);
     }
 
     protected function isForceHiding(string $key): bool
