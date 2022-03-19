@@ -10,7 +10,27 @@ class Stringify
 {
     use Makeable;
 
-    public function get($value): string
+    public function parse($value)
+    {
+        switch (true) {
+            case $this->isNull($value):
+                return null;
+
+            case $this->isBool($value):
+                return $this->toBool($value);
+
+            case $this->isNumeric($value):
+                return $this->toNumeric($value);
+
+            case $this->isString($value):
+                return $value;
+
+            default:
+                return '';
+        }
+    }
+
+    public function toString($value): string
     {
         switch (true) {
             case $this->isBool($value):
@@ -27,27 +47,52 @@ class Stringify
         }
     }
 
-    public function isBool($value): bool
+    protected function isNull($value): bool
     {
-        return is_bool($value);
+        $val = is_string($value) ? Str::lower($value) : $value;
+
+        return is_null($value) || $val === 'null';
     }
 
-    public function isNumeric($value): bool
+    protected function isBool($value): bool
+    {
+        $val = is_string($value) ? Str::lower($value) : $value;
+
+        return is_bool($value) || $val === 'true' || $val === 'false';
+    }
+
+    protected function isNumeric($value): bool
     {
         return is_numeric($value);
     }
 
-    public function isString($value): bool
+    protected function toNumeric($value)
+    {
+        if (is_float($value)) {
+            return (float) $value;
+        }
+
+        return (int) $value;
+    }
+
+    protected function isString($value): bool
     {
         return is_string($value) && ! empty($value);
     }
 
-    public function fromBool(bool $value): string
+    protected function fromBool($value): string
     {
-        return Boolean::convertToString($value);
+        $parsed = Boolean::parse($value);
+
+        return Boolean::convertToString($parsed);
     }
 
-    public function fromString(string $value): string
+    protected function toBool($value): bool
+    {
+        return Boolean::to($value);
+    }
+
+    protected function fromString(string $value): string
     {
         if (Str::contains($value, [' ', '#'])) {
             return sprintf('"%s"', $value);
