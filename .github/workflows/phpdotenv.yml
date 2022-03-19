@@ -1,0 +1,31 @@
+name: "Symfony 6"
+on: [ push ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        strategy:
+            fail-fast: true
+            matrix:
+                php: [ "7.3", "7.4", "8.0", "8.1" ]
+                phpdotenv: [ "3.0", "4.0", "5.0" ]
+
+        name: PHP ${{ matrix.php }}, DT ${{ matrix.phpdotenv }}
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    extensions: curl, mbstring, zip, pcntl, pdo, pdo_sqlite, iconv
+                    coverage: none
+
+            -   name: Install dependencies
+                run: composer require vlucas/phpdotenv:^${{ matrix.phpdotenv }}
+
+            -   name: Execute tests
+                run: sudo vendor/bin/phpunit --colors=always
