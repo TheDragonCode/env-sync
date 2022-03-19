@@ -47,7 +47,7 @@ class Parser
         foreach ($this->match($content) as $match) {
             [$key, $value] = $this->split($match);
 
-            if (Str::contains($key, [':', '$', '=', '{', '}'])) {
+            if (Str::contains($key, [':', '$', '=', '->', '{', '}'])) {
                 continue;
             }
 
