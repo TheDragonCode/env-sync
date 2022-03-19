@@ -60,12 +60,12 @@ class Syncer
     {
         $path = $filename ?: $this->sync;
 
-        File::store($path, $this->content());
+        File::store($this->storePath($path), $this->content());
     }
 
     public function store(): void
     {
-        File::store($this->storePath(), $this->content());
+        File::store($this->storePath($this->filename), $this->content());
     }
 
     protected function prepared(): Compiler
@@ -99,8 +99,8 @@ class Syncer
         return $this->compiler->items($items, $target);
     }
 
-    protected function storePath(): string
+    protected function storePath(string $filename): string
     {
-        return rtrim($this->path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $this->filename;
+        return rtrim($this->path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $filename;
     }
 }
