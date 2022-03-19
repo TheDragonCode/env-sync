@@ -119,7 +119,11 @@ class Compiler
 
     protected function replace(string $key, $value, bool $secure)
     {
-        return $this->isForceHiding($key) && $secure ? null : $this->value($key, $value);
+        if ($this->isForceHiding($key) && $secure) {
+            return null;
+        }
+
+        return $secure ? $this->value($key, $value) : $value;
     }
 
     protected function isForceHiding(string $key): bool
