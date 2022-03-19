@@ -7,6 +7,18 @@ use Tests\TestCase;
 
 class MainTest extends TestCase
 {
+    public function testRaw()
+    {
+        $service = $this->service();
+
+        $service->path($this->path);
+        $service->filename($this->filename);
+
+        $expected = require __DIR__ . '/../fixtures/expected/raw.php';
+
+        $this->assertSame($expected, $service->raw());
+    }
+
     public function testContent()
     {
         $service = $this->service();

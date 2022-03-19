@@ -43,18 +43,28 @@ class Syncer
         return $this;
     }
 
+    public function raw(): array
+    {
+        return $this->prepared()->getItems();
+    }
+
     public function content(): string
     {
-        $files = $this->files();
-
-        $items = $this->parsed($files);
-
-        return $this->compiled($items);
+        return $this->prepared()->get();
     }
 
     public function store(): void
     {
         File::store($this->storePath(), $this->content());
+    }
+
+    protected function prepared(): Compiler
+    {
+        $files = $this->files();
+
+        $items = $this->parsed($files);
+
+        return $this->compiler($items);
     }
 
     protected function files(): array
@@ -67,9 +77,9 @@ class Syncer
         return $this->parser->files($files)->get();
     }
 
-    protected function compiled(array $items): string
+    protected function compiler(array $items): Compiler
     {
-        return $this->compiler->items($items)->get();
+        return $this->compiler->items($items);
     }
 
     protected function storePath(): string

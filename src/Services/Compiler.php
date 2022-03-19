@@ -29,17 +29,21 @@ class Compiler
 
     public function items(array $items): self
     {
-        $this->items = $items;
+        $this->items = $this->map($items);
 
         return $this;
     }
 
+    public function getItems(): array
+    {
+        return $this->items;
+    }
+
     public function get(): string
     {
-        $this->map();
-        $this->split();
+        $items = $this->grouped();
 
-        return $this->compile();
+        return $this->compile($items);
     }
 
     /**
@@ -54,38 +58,46 @@ class Compiler
         return $this;
     }
 
-    protected function map(): void
+    protected function map(array $items): array
     {
-        foreach ($this->items as $key => &$value) {
+        $result = [];
+
+        foreach ($items as $key => $value) {
+            $key = Str::upper($key);
+
             $replaced = $this->replace($key, $value);
 
-            $value = $this->stringify($replaced);
+            $result[$key] = $this->parseStringValue($replaced);
         }
+
+        return $result;
     }
 
-    protected function split(): void
+    protected function grouped(): array
     {
-        $items = [];
+        $result = [];
 
-        foreach ($this->items as $key => $value) {
+        foreach ($this->getItems() as $key => $value) {
             $section = $this->section($key);
             $key     = $this->key($key);
 
-            $items[$section][$key] = $value;
+            $result[$section][$key] = $value;
         }
 
-        $this->items = $items;
+        return $result;
     }
 
-    protected function compile(): string
+    protected function compile(array $items): string
     {
         $result = '';
 
         $separator = $this->getSeparator();
 
-        foreach ($this->items as $values) {
+        foreach ($items as $values) {
             foreach ($values as $key => $value) {
-                $result .= "{$key}={$value}{$separator}";
+                $string = $this->compileString($value);
+
+                $result .= "{$key}={$string}{$separator}";
             }
 
             $result .= $separator;
@@ -115,9 +127,14 @@ class Compiler
         return $value;
     }
 
-    protected function stringify($value): string
+    protected function parseStringValue($value)
     {
-        return $this->stringify->get($value);
+        return $this->stringify->parse($value);
+    }
+
+    protected function compileString($value): string
+    {
+        return $this->stringify->toString($value);
     }
 
     protected function inArray(string $key, array $array): bool
