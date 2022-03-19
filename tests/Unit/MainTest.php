@@ -52,7 +52,7 @@ class MainTest extends TestCase
         $service->path($this->path);
         $service->filename($this->filename, $source);
 
-        $service->update('.env.example');
+        $service->store();
 
         $this->assertFileEquals($this->expected('expected-sync'), $target);
     }

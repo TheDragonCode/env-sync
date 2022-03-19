@@ -38,10 +38,10 @@ class Syncer
         return $this;
     }
 
-    public function filename(string $filename, ?string $sync_with = null): self
+    public function filename(string $filename, bool $sync = false): self
     {
         $this->filename = $filename;
-        $this->sync     = $sync_with;
+        $this->sync     = $sync;
 
         return $this;
     }
@@ -56,16 +56,9 @@ class Syncer
         return $this->prepared()->get();
     }
 
-    public function update(?string $filename = null): void
-    {
-        $path = $filename ?: $this->sync;
-
-        File::store($this->storePath($path), $this->content());
-    }
-
     public function store(): void
     {
-        File::store($this->storePath($this->filename), $this->content());
+        File::store($this->targetPath(), $this->content());
     }
 
     protected function prepared(): Compiler
@@ -74,14 +67,14 @@ class Syncer
 
         $items = $this->parsed($files);
 
-        $target = $this->sync ? $this->parser($this->sync) : [];
+        $target = $this->sync ? $this->parser() : [];
 
         return $this->compiler($items, $target);
     }
 
-    protected function parser(string $path): array
+    protected function parser(): array
     {
-        return Reader::make()->from($path);
+        return Reader::make()->from($this->targetPath());
     }
 
     protected function files(): array
@@ -99,8 +92,8 @@ class Syncer
         return $this->compiler->items($items, $target);
     }
 
-    protected function storePath(string $filename): string
+    protected function targetPath(): string
     {
-        return rtrim($this->path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $filename;
+        return rtrim($this->path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $this->filename;
     }
 }
