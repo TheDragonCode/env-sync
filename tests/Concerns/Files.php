@@ -10,11 +10,9 @@ trait Files
 
     protected $filename = '.env.example';
 
-    protected function expected(?string $path = null): string
+    protected function expected(): string
     {
-        $filename = $path ?: $this->fixture_expected;
-
-        return realpath(__DIR__ . '/../fixtures/expected/' . $filename);
+        return realpath(__DIR__ . '/../fixtures/expected/' . $this->fixture_expected);
     }
 
     protected function targetPath(): string
