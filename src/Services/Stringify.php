@@ -4,6 +4,7 @@ namespace DragonCode\EnvSync\Services;
 
 use DragonCode\Support\Concerns\Makeable;
 use DragonCode\Support\Facades\Helpers\Boolean;
+use DragonCode\Support\Facades\Helpers\Str;
 
 class Stringify
 {
@@ -16,8 +17,10 @@ class Stringify
                 return $this->fromBool($value);
 
             case $this->isNumeric($value):
-            case $this->isString($value):
                 return $value;
+
+            case $this->isString($value):
+                return $this->fromString($value);
 
             default:
                 return '';
@@ -42,5 +45,14 @@ class Stringify
     public function fromBool(bool $value): string
     {
         return Boolean::convertToString($value);
+    }
+
+    public function fromString(string $value): string
+    {
+        if (Str::contains($value, [' ', '#'])) {
+            return sprintf('"%s"', $value);
+        }
+
+        return $value;
     }
 }
