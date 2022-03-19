@@ -44,16 +44,16 @@ class MainTest extends TestCase
 
     public function testSync()
     {
-        $source = __DIR__ . '/../fixtures/source/.env.sync';
-        $target = __DIR__ . '/../fixtures/expected/expected-sync';
+        $source   = __DIR__ . '/../fixtures/source/.env.sync';
+        $target   = __DIR__ . '/../fixtures/expected/expected-sync';
+        $expected = __DIR__ . '/../fixtures/source/.env.example';
 
         $service = $this->service();
 
         $service->path($this->path);
-        $service->filename($this->filename);
-        $service->sync($source);
+        $service->filename($this->filename, $source);
 
-        $service->store();
+        $service->update($expected);
 
         $this->assertFileEquals($this->expected('expected-sync'), $target);
     }

@@ -38,16 +38,10 @@ class Syncer
         return $this;
     }
 
-    public function filename(string $filename): self
+    public function filename(string $filename, ?string $sync_with = null): self
     {
         $this->filename = $filename;
-
-        return $this;
-    }
-
-    public function sync(string $filename): self
-    {
-        $this->sync = $filename;
+        $this->sync     = $sync_with;
 
         return $this;
     }
@@ -60,6 +54,13 @@ class Syncer
     public function content(): string
     {
         return $this->prepared()->get();
+    }
+
+    public function update(?string $filename = null): void
+    {
+        $path = $filename ?: $this->sync;
+
+        File::store($path, $this->content());
     }
 
     public function store(): void
