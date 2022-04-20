@@ -17,9 +17,9 @@ class Syncer
     protected bool $sync = false;
 
     public function __construct(
-        protected Parser   $parser,
+        protected Parser $parser,
         protected Compiler $compiler,
-        protected Finder   $finder
+        protected Finder $finder
     ) {
     }
 

@@ -19,7 +19,7 @@ class Compiler
 
     public function __construct(
         protected Stringify $stringify,
-        protected Config    $config
+        protected Config $config
     ) {
     }
 
