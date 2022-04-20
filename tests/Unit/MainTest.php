@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use DragonCode\Support\Exceptions\DirectoryNotFoundException;
+use DragonCode\Support\Facades\Filesystem\File;
 use Tests\TestCase;
 
 class MainTest extends TestCase
@@ -14,7 +15,7 @@ class MainTest extends TestCase
         $service->path($this->path);
         $service->filename($this->filename);
 
-        $expected = require __DIR__ . '/../fixtures/expected/raw.php';
+        $expected = File::load(__DIR__ . '/../fixtures/expected/raw.php');
 
         $this->assertSame($expected, $service->raw());
     }

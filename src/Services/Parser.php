@@ -9,9 +9,9 @@ class Parser
 {
     use Makeable;
 
-    protected $files = [];
+    protected array $files = [];
 
-    protected $keys = [];
+    protected array $keys = [];
 
     public function files(array $files): self
     {

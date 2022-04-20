@@ -1,6 +1,6 @@
 {
     "name": "dragon-code/env-sync",
-    "description": "Keeping your .env.example is up to date",
+    "description": "Keeping your .env.example is up-to-date",
     "license": "MIT",
     "type": "library",
     "keywords": [
@@ -29,8 +29,8 @@
         "source": "https://github.com/TheDragonCode/env-sync"
     },
     "require": {
-        "php": "^7.3 || ^8.0",
-        "dragon-code/support": "^5.8",
+        "php": "^8.0",
+        "dragon-code/support": "^6.0",
         "symfony/finder": "^4.0 || ^5.0 || ^6.0",
         "vlucas/phpdotenv": "^4.0 || ^5.0"
     },

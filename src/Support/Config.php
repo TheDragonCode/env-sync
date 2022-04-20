@@ -9,12 +9,9 @@ class Config
 {
     use Makeable;
 
-    /** @var array */
-    protected $config;
-
-    public function __construct(array $config = [])
-    {
-        $this->config = $config;
+    public function __construct(
+        protected array $config = []
+    ) {
     }
 
     public function forces(): array

@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class ConfigurableTest extends TestCase
 {
-    protected $fixture_expected = 'expected-config';
+    protected string $fixture_expected = 'expected-config';
 
     public function testContent()
     {

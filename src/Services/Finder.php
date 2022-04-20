@@ -12,17 +12,15 @@ class Finder
 
     public const CONTAINS = ['env(', 'getenv('];
 
-    protected $exclude_dirs = ['node_modules', '.idea', '.git', '.github', 'tests'];
+    protected array $exclude_dirs = ['node_modules', '.idea', '.git', '.github', 'tests'];
 
-    protected $names = ['*.php', '*.json', '*.yml', '*.yaml', '*.twig'];
+    protected array $names = ['*.php', '*.json', '*.yml', '*.yaml', '*.twig'];
 
-    protected $instance;
+    protected array $files = [];
 
-    protected $files = [];
-
-    public function __construct(SymfonyFinder $finder)
-    {
-        $this->instance = $finder;
+    public function __construct(
+        protected SymfonyFinder $finder
+    ) {
     }
 
     /**
@@ -30,7 +28,7 @@ class Finder
      *
      * @return array
      */
-    public function get($path): array
+    public function get(array|string $path): array
     {
         $this->search($path);
 
@@ -40,7 +38,7 @@ class Finder
     /**
      * @param string|string[] $path
      */
-    protected function search($path): void
+    protected function search(array|string $path): void
     {
         foreach ($this->find($path) as $file) {
             $this->push($file->getRealPath());
@@ -52,9 +50,9 @@ class Finder
      *
      * @return \Symfony\Component\Finder\Finder
      */
-    protected function find($path): SymfonyFinder
+    protected function find(array|string $path): SymfonyFinder
     {
-        return $this->instance->in($path)->files()
+        return $this->finder->in($path)->files()
             ->exclude($this->exclude_dirs)
             ->name($this->names)
             ->contains(self::CONTAINS);
