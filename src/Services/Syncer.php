@@ -3,30 +3,24 @@
 namespace DragonCode\EnvSync\Services;
 
 use DragonCode\EnvSync\Concerns\Makeable;
-use DragonCode\Support\Facades\Helpers\Filesystem\Directory;
-use DragonCode\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\Support\Facades\Filesystem\Directory;
+use DragonCode\Support\Facades\Filesystem\File;
 
 class Syncer
 {
     use Makeable;
 
-    protected $compiler;
+    protected string $path;
 
-    protected $parser;
+    protected string $filename;
 
-    protected $finder;
+    protected bool $sync = false;
 
-    protected $path;
-
-    protected $filename;
-
-    protected $sync;
-
-    public function __construct(Parser $parser, Compiler $compiler, Finder $finder)
-    {
-        $this->parser   = $parser;
-        $this->compiler = $compiler;
-        $this->finder   = $finder;
+    public function __construct(
+        protected Parser   $parser,
+        protected Compiler $compiler,
+        protected Finder   $finder
+    ) {
     }
 
     public function path(string $path): self

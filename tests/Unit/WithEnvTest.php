@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
-use DragonCode\Support\Facades\Helpers\Filesystem\File;
+use DragonCode\Support\Facades\Filesystem\File;
 use Tests\TestCase;
 
 class WithEnvTest extends TestCase
 {
-    protected $fixture_expected = 'expected-sync';
+    protected string $fixture_expected = 'expected-sync';
 
-    protected $filename = '.env';
+    protected string $filename = '.env';
 
     public function testSync()
     {

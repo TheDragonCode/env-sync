@@ -4,11 +4,11 @@ namespace Tests\Concerns;
 
 trait Files
 {
-    protected $fixture_expected = 'expected';
+    protected string $fixture_expected = 'expected';
 
-    protected $path = __DIR__ . '/../fixtures/source';
+    protected string $path = __DIR__ . '/../fixtures/source';
 
-    protected $filename = '.env.example';
+    protected string $filename = '.env.example';
 
     protected function expected(): string
     {

@@ -10,41 +10,25 @@ class Stringify
 {
     use Makeable;
 
-    public function parse($value)
+    public function parse($value): mixed
     {
-        switch (true) {
-            case $this->isNull($value):
-                return null;
-
-            case $this->isBool($value):
-                return $this->toBool($value);
-
-            case $this->isNumeric($value):
-                return $this->toNumeric($value);
-
-            case $this->isString($value):
-                return $value;
-
-            default:
-                return '';
-        }
+        return match (true) {
+            $this->isNull($value)    => null,
+            $this->isBool($value)    => $this->toBool($value),
+            $this->isNumeric($value) => $this->toNumeric($value),
+            $this->isString($value)  => $value,
+            default                  => '',
+        };
     }
 
     public function toString($value): string
     {
-        switch (true) {
-            case $this->isBool($value):
-                return $this->fromBool($value);
-
-            case $this->isNumeric($value):
-                return $value;
-
-            case $this->isString($value):
-                return $this->fromString($value);
-
-            default:
-                return '';
-        }
+        return match (true) {
+            $this->isBool($value)    => $this->fromBool($value),
+            $this->isNumeric($value) => $value,
+            $this->isString($value)  => $this->fromString($value),
+            default                  => '',
+        };
     }
 
     protected function isNull($value): bool
@@ -66,7 +50,7 @@ class Stringify
         return is_numeric($value);
     }
 
-    protected function toNumeric($value)
+    protected function toNumeric($value): float|int
     {
         if (is_float($value)) {
             return (float) $value;
@@ -84,7 +68,7 @@ class Stringify
     {
         $parsed = Boolean::parse($value);
 
-        return Boolean::convertToString($parsed);
+        return Boolean::toString($parsed);
     }
 
     protected function toBool($value): bool

@@ -4,27 +4,23 @@ namespace DragonCode\EnvSync\Services;
 
 use DragonCode\EnvSync\Support\Config;
 use DragonCode\Support\Concerns\Makeable;
-use DragonCode\Support\Facades\Helpers\Instance;
 use DragonCode\Support\Facades\Helpers\Str;
+use DragonCode\Support\Facades\Instances\Instance;
 
 class Compiler
 {
     use Makeable;
 
-    protected $hides = ['CLIENT', 'HOOK', 'KEY', 'LOGIN', 'PASS', 'SECRET', 'TOKEN', 'USER'];
+    protected array $hides = ['CLIENT', 'HOOK', 'KEY', 'LOGIN', 'PASS', 'SECRET', 'TOKEN', 'USER'];
 
-    protected $separator = PHP_EOL;
+    protected string $separator = PHP_EOL;
 
-    protected $stringify;
+    protected array $items = [];
 
-    protected $config;
-
-    protected $items;
-
-    public function __construct(Stringify $stringify, Config $config)
-    {
-        $this->stringify = $stringify;
-        $this->config    = $config;
+    public function __construct(
+        protected Stringify $stringify,
+        protected Config    $config
+    ) {
     }
 
     public function items(array $items, array $target = [], bool $secure = true): self
@@ -48,12 +44,7 @@ class Compiler
         return $this->compile($items);
     }
 
-    /**
-     * @param array|\DragonCode\EnvSync\Support\Config $config
-     *
-     * @return $this
-     */
-    public function setConfig($config): self
+    public function setConfig(Config|array $config): self
     {
         $this->config = Instance::of($config, Config::class) ? $config : Config::make($config);
 
