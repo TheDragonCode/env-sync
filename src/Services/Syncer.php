@@ -20,8 +20,7 @@ class Syncer
         protected Parser $parser,
         protected Compiler $compiler,
         protected Finder $finder
-    ) {
-    }
+    ) {}
 
     public function path(string $path): self
     {
