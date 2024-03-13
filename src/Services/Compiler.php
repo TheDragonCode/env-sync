@@ -19,9 +19,8 @@ class Compiler
 
     public function __construct(
         protected Stringify $stringify,
-        protected Config    $config
-    ) {
-    }
+        protected Config $config
+    ) {}
 
     public function items(array $items, array $target = [], bool $secure = true): self
     {
@@ -44,7 +43,7 @@ class Compiler
         return $this->compile($items);
     }
 
-    public function setConfig(Config|array $config): self
+    public function setConfig(array|Config $config): self
     {
         $this->config = Instance::of($config, Config::class) ? $config : Config::make($config);
 
@@ -111,7 +110,7 @@ class Compiler
     protected function replace(string $key, $value, bool $secure)
     {
         if ($this->isForceHiding($key) && $secure) {
-            return null;
+            return;
         }
 
         return $secure ? $this->value($key, $value) : $value;

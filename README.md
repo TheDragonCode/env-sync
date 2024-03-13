@@ -86,7 +86,7 @@ You can also suggest your implementation by sending a PR. We will be glad 😊
 This package is licensed under the [MIT License](LICENSE).
 
 
-[badge_build]:          https://img.shields.io/github/workflow/status/TheDragonCode/env-sync/phpunit?style=flat-square
+[badge_build]:          https://img.shields.io/github/actions/workflow/status/TheDragonCode/env-sync/symfony-6.yml?style=flat-square
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/dragon-code/env-sync.svg?style=flat-square
 

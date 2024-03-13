@@ -20,13 +20,10 @@ class Finder
 
     public function __construct(
         protected SymfonyFinder $finder
-    ) {
-    }
+    ) {}
 
     /**
-     * @param string|string[] $path
-     *
-     * @return array
+     * @param  string|array<string>  $path
      */
     public function get(array|string $path): array
     {
@@ -36,7 +33,7 @@ class Finder
     }
 
     /**
-     * @param string|string[] $path
+     * @param  string|array<string>  $path
      */
     protected function search(array|string $path): void
     {
@@ -46,9 +43,7 @@ class Finder
     }
 
     /**
-     * @param string|string[] $path
-     *
-     * @return \Symfony\Component\Finder\Finder
+     * @param  string|array<string>  $path
      */
     protected function find(array|string $path): SymfonyFinder
     {
