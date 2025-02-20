@@ -8,6 +8,8 @@
 [![Github Workflow Status][badge_build]][link_build]
 [![License][badge_license]][link_license]
 
+> [!TIP]
+> Use [msamgan/laravel-env-keys-checker](https://github.com/msamgan/laravel-env-keys-checker) instead.
 
 ## Installation
 
